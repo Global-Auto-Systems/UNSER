@@ -1,0 +1,209 @@
+{% extends "ministry/base.html" %}
+{% block content %}
+    <!-- income order visit user Start -->
+    <div class="income-order-visit-user-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>Primary Schools</h2>
+                                <a href="{% url 'schools' 2  %}">
+                                <div class="main-income-phara">
+                                    <p>All List</p>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <h3><span></span><span class="counter">{{primary_schools}}</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>Secondary Schools</h2>
+                                <a href="{% url 'schools' 3 %}">
+                                <div class="main-income-phara order-cl">
+                                    <p>List</p>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <h3><span class="counter">{{secondary_schools}}</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>Tertiaries</h2>
+                                <a href="{% url 'schools' 4 %}">
+                                <div class="main-income-phara visitor-cl">
+                                    <p>View</p>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <h3><span class="counter">{{tertiary_schools}}</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <div class="income-title">
+                            <div class="main-income-head">
+                                <h2>Universities</h2>
+                                <a href="{% url 'schools' 5 %}">
+                                <div class="main-income-phara low-value-cl">
+                                    <p>View List</p>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="income-dashone-pro">
+                            <div class="income-rate-total">
+                                <div class="price-adminpro-rate">
+                                    <h3><span class="counter">{{universities}}</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <canvas id="primary"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <canvas id="secondary"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <canvas id="tertiary"></canvas>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                        <canvas id="university"></canvas>
+                    </div>
+                </div>
+ 
+            </div>
+        </div>
+    </div>
+    <!-- welcome Project, sale area start-->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+$(function () {
+
+    var primary_config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ primary_data|safe }},
+          backgroundColor: [
+            '#000000','#d7c797','#845422','#ead61c','#a47c48','#9f9f9f','#c83838','#cccccc','#ffffff'
+          ],
+          label: 'Founding Body'
+        }],
+        labels: {{ primary_labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    var secondary_config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ secondary_data|safe }},
+          backgroundColor: [
+            '#000000','#d7c797','#845422','#ead61c','#a47c48','#9f9f9f','#c83838','#cccccc','#ffffff'
+
+          ],
+          label: 'Founding Body'
+        }],
+        labels: {{ secondary_labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    var tertiary_config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ tertiary_data|safe }},
+          backgroundColor: [
+            '#000000','#d7c797','#845422','#ead61c','#a47c48','#9f9f9f','#c83838','#cccccc','#ffffff'
+          ],
+          label: 'Founding Body'
+        }],
+        labels: {{ tertiary_labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    var university_config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ university_data|safe }},
+          backgroundColor: [
+            '#000000','#d7c797','#845422','#ead61c','#a47c48','#9f9f9f','#c83838','#cccccc','#ffffff'
+          ],
+          label: 'Founding Body'
+        }],
+        labels: {{ university_labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var primary_ctx = document.getElementById('primary').getContext('2d');
+      window.myPie = new Chart(primary_ctx, primary_config);
+
+      var secondary_ctx = document.getElementById('secondary').getContext('2d');
+      window.myPie = new Chart(secondary_ctx, secondary_config);
+
+      var tertiary_ctx = document.getElementById('tertiary').getContext('2d');
+      window.myPie = new Chart(tertiary_ctx, tertiary_config);
+
+      var university_ctx = document.getElementById('university').getContext('2d');
+      window.myPie = new Chart(university_ctx, university_config);
+    };
+
+});
+
+  </script>
+    {% endblock content %}
+

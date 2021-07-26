@@ -1,0 +1,440 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="button-adminpro-area">
+<div class="container">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="user-profile-wrap shadow-reset mg-b-40">
+            <a href="{% url 'enrolments' level.id %}" {% if sub_title == "Enrolment" %} class="btn" style="background: red; color: white;" {% endif %}> Enrolment </a> | <a href="{% url 'repeaters' level.id %}" {% if sub_title == "Repeaters" %} class="btn" style="background: red; color: white;" {% endif %}> Repeaters </a> | <a href="{% url 'nationality' level.id %}" {% if sub_title == "Nationality" %} class="btn" style="background: red; color: white;" {% endif %}> Nationality </a> | <a href="{% url 'proposed-intake' level.id %}" {% if sub_title == "Proposed Intake" %} class="btn" style="background: red; color: white;" {% endif %}> Proposed Intake </a> | <a href="{% url 'physical-streams' level.id %}" {% if sub_title == "Physical Streams" %} class="btn" style="background: red; color: white;" {% endif %}> Streams </a> | <a href="{% url 'orphans' level.id %}" {% if sub_title == "Orphans" %} class="btn" style="background: red; color: white;" {% endif %}> Orphans </a> | <a href="{% url 'special-needs' level.id %}" {% if sub_title == "Special Needs" %} class="btn" style="background: red; color: white;" {% endif %}> Special Needs </a> | <a href="{% url 'new-entrants' level.id %}" {% if sub_title == "New Entrants" %} class="btn" style="background: red; color: white;" {% endif %}> New Entrants </a>  | <a href="{% url 'seating-and-writing-space' level.id %}" {% if sub_title == "Seating and Writing Space" %} class="btn" style="background: red; color: white;" {% endif %}> Seating and Writing Space </a>  | <a href="{% url 'transfered-students' level.id %}" {% if sub_title == "Transfered Students" %} class="btn" style="background: red; color: white;" {% endif %}> Transfers In </a> | <a href="{% url 'examinations' level.id %}" {% if sub_title == "Examinations" %} class="btn" style="background: red; color: white;" {% endif %}> Examinations </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+<div class="col-lg-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="row">
+    <div class="col-lg-8">
+    
+    {% if sub_title == "Enrolment" %}
+    <h4><strong>{{level}} Schools</strong> - Enrolment by Class, Sex and Age (<i><small>Age at the beginning of the first term</small></i>)</h4>
+    </div>
+    <form method="GET" action="{% url 'enrolments' level.id %}" enctype="multipart/form-data">
+    {% elif sub_title == "Repeaters" %}
+    <h4><strong>{{level}} Schools</strong> - Repeaters by Class and Sex (<i><small>pupils who repeated class during the year selected</small></i>)</h4>
+    </div>
+    <form method="GET" action="{% url 'repeaters' level.id %}" enctype="multipart/form-data">
+    {% elif sub_title == "Nationality" %}
+    <h4><strong>{{level}} Schools</strong> - Enrolment by Nationality of Pupils by Class and Gender</h4>
+    </div>
+    <form method="GET" action="{% url 'nationality' level.id %}" enctype="multipart/form-data">
+    {% elif sub_title == "Physical Streams" %}
+    <h4><strong>{{level}} Schools</strong> - Physical Streams by class (<i><small>Number of seperate group existing for each class</small></i>)</h4>
+    </div>
+    <form method="GET" action="{% url 'physical-streams' level.id %}" enctype="multipart/form-data">
+    {% elif sub_title == "Orphans" %}
+    <h4><strong>{{level}} Schools</strong> - Orphans by Class and Sex
+    </div>
+    <form method="GET" action="{% url 'orphans' level.id %}" enctype="multipart/form-data">
+    {% elif sub_title == "Special Needs" %}
+    <h4><strong>{{level}} Schools</strong> - Pupils with Special Learning Needs by Class and Sex </h4>
+    </div>
+    <form method="GET" action="{% url 'special-needs' level.id %}" enctype="multipart/form-data">
+    {% elif sub_title == "Proposed Intake" %}
+    <h4><strong>{{level}} Schools</strong> - Proposed Intake by Gender</h4>
+    </div>
+    <form method="GET" action="{% url 'proposed-intake' level.id %}" enctype="multipart/form-data">
+    {% elif sub_title == "New Entrants" %}
+    <h4><strong>{{level}} Schools</strong> - New Entrants to {{classes}} by Age and Sex(<i><small>NO Repeaters</small></i>)</h4>
+    </div>
+    <form method="GET" action="{% url 'new-entrants' level.id %}" enctype="multipart/form-data">
+    {% elif sub_title == "Seating and Writing Space" %}
+    <h4><strong>{{level}} Schools</strong> - Pupils with Adquate Seating and Writing Space (<i><small>Sitting on a chair, with desk or bench</small></i>)</h4>
+    </div>
+    <form method="GET" action="{% url 'seating-and-writing-space' level.id %}" enctype="multipart/form-data">
+    {% elif sub_title == "Transfered Students" %}
+    <h4><strong>{{level}} Schools</strong> - Transfered Students across Schools by Class and Sex </h4>
+    </div>
+    <form method="GET" action="{% url 'transfered-students' level.id %}" enctype="multipart/form-data">
+    {% elif sub_title == "Examinations" %}
+    <h4><strong>{{level}} Schools</strong> - Number of Students Sitting examinations at the end of each term by Class, Gender and Term</h4>
+    </div>
+    <form method="GET" action="{% url 'examinations' level.id %}" enctype="multipart/form-data">
+    {% endif %} 
+      
+    
+        {% csrf_token %}
+    <div class="col-lg-1">
+    <p class="pull-right">Year</p>
+    </div>
+    <div class="col-lg-2">
+    <input type="number" name="year" value="{{year}}" required class="form-control" style="width: 100%; margin-bottom: 1%;">
+    </div>
+    <div class="col-lg-1">
+    <input type="submit" value="Select" class="btn btn-default pull-right">
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    <div class="static-table-list">
+
+{% if sub_title == "Enrolment" %}
+
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;">Age</th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for age in ages %}
+                    <tr>
+                        <td style="text-align: center;">
+                            <strong>
+                                {{age}}
+                            </strong>
+                        </td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id and student.age == age.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id and student.age == age.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;">{% for student in students_by_age %}{% if student.age == age.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students_by_age %}{% if student.age == age.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td style="text-align: center;"><strong>Total</strong></td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students_by_class %}{% if student.class_name == class.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students_by_class %}{% if student.class_name == class.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{total_students.total_boys}}</strong></td>
+                    <td style="text-align: center;"><strong>{{total_students.total_girls}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+{% elif sub_title == "Repeaters" %}
+
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;"></th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;"><strong>Repeaters</strong></td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{students_by_class.total_boys}}</strong></td>
+                    <td style="text-align: center;"><strong>{{students_by_class.total_girls}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    
+{% elif sub_title == "Nationality" %}
+
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;">Country</th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for country in countries %}
+                    <tr>
+                        <td style="text-align: center;">
+                            <strong>
+                                {{country}}
+                            </strong>
+                        </td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id and student.country == country.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id and student.country == country.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;">{% for student in students_by_country %}{% if student.country == country.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students_by_country %}{% if student.country == country.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td style="text-align: center;"><strong>Total</strong></td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students_by_class %}{% if student.class_name == class.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students_by_class %}{% if student.class_name == class.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{total_students.total_boys}}</strong></td>
+                    <td style="text-align: center;"><strong>{{total_students.total_girls}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+{% elif sub_title == "Physical Streams" %}
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;"></th>
+                    {% for class in classes %}
+                    <th style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th style="text-align: center;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;"><strong>Streams</strong></td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id %} {{student.total_streams}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{students_by_stream.total_streams}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+{% elif sub_title == "Orphans" or sub_title == "Special Needs" %}
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;"></th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for status in statuses %}
+                    <tr>
+                        <td style="text-align: center;">
+                            <strong>
+                                {{status}}
+                            </strong>
+                        </td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id and student.status == status.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id and student.status == status.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;">{% for student in students_by_status %}{% if student.status == status.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students_by_status %}{% if student.status == status.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td style="text-align: center;"><strong>Total</strong></td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students_by_class %}{% if student.class_name == class.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students_by_class %}{% if student.class_name == class.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{total_students.total_boys}}</strong></td>
+                    <td style="text-align: center;"><strong>{{total_students.total_girls}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+{% elif sub_title == "Proposed Intake" %}
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;"></th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;"><strong>Proposed Intake</strong></td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{students_by_class.total_boys}}</strong></td>
+                    <td style="text-align: center;"><strong>{{students_by_class.total_girls}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+{% elif sub_title == "New Entrants" %}
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;"></th>
+                    {% for age in ages %}
+                    <th colspan="2" style="text-align: center;">{{age}}{% if forloop.last %} or more {% endif %}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for age in ages %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;"><strong>New Entrants</strong></td>
+                    {% for age in ages %}
+                    <td style="text-align: center;">{% for student in students %}{% if student.age == age.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students %}{% if student.age == age.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{students_by_age.total_boys}}</strong></td>
+                    <td style="text-align: center;"><strong>{{students_by_age.total_girls}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+{% elif sub_title == "Seating and Writing Space" %}
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;"></th>
+                    {% for class in classes %}
+                    <th style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th style="text-align: center;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;"><strong>Pupils</strong></td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id %} {{student.total_pupils}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{students_by_class.total_pupils}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+{% elif sub_title == "Transfered Students" %}
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;"></th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;"><strong>Tranfers</strong></td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{students_by_class.total_boys}}</strong></td>
+                    <td style="text-align: center;"><strong>{{students_by_class.total_girls}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+{% elif sub_title == "Examinations" %}
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;">Country</th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for term in terms %}
+                    <tr>
+                        <td style="text-align: center;">
+                            <strong>
+                                {{term}}
+                            </strong>
+                        </td>
+                    {% for class in classes %}
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id and student.term == term.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students %}{% if student.class_name == class.id and student.term == term.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;">{% for student in students_by_term %}{% if student.term == term.id %} {{student.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for student in students_by_term %}{% if student.term == term.id %}{{student.total_girls}}{% endif %}{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+{% endif %}
+</div>
+</div><!-- /.widget-box -->
+</div>     
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,75 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="button-adminpro-area mg-t-40">
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<div class="button-ad-wrap mg-b-40">
+
+        <h4>Teacher Transfer Form</h4>	
+			<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}	
+				<fieldset>
+					{{ form|crispy }}
+					<button class="btn btn-success mg-b-4 " style="margin-bottom: 5%; margin: 5%;" type="submit">Submit</button>
+				</fieldset>
+			</form>
+		</div> 
+</div>
+<div class="col-md-6">
+<div class="button-ad-wrap mg-b-40">
+    <h4>Recent transfers</h4>	
+	<div class="static-table-list">
+        <table class="table border-table table-stripped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Teacher</th>
+                    <th>School</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transfer in transfers %}
+					<tr>
+						<td>{{ forloop.counter0|add:transfers.start_index }}</td>
+						<td>{{ transfer.teacher }}</td>
+						<td>{{ transfer.school }}</td>
+						<td>
+						<a href="{% url 'update-transfer' transfer.id %}" class="tooltip-success" data-rel="tooltip" title="Edit">
+							<span class="green">
+								<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+							</span>
+						</a>
+						</td>
+					</tr>
+
+					{% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+    <span class="step-links">
+        {% if transfers.has_previous %}
+            <a class="btn btn-custon-three btn-default btn-sm" href="?page=1">&laquo; first</a>
+            <a class="btn btn-custon-three btn-default btn-sm" href="?page={{ transfers.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="current">
+            Page {{ transfers.number }} of {{ transfers.paginator.num_pages }}.
+        </span>
+        {% if transfers.has_next %}
+            <a class="btn btn-custon-three btn-default btn-sm" href="?page={{ transfers.next_page_number }}">next</a>
+            <a class="btn btn-custon-three btn-default btn-sm" href="?page={{ transfers.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+	</div>
+</div><!-- /.widget-box -->
+		</div>    
+
+	</div>
+</div>
+</div>
+</div>
+{% endblock content %}
