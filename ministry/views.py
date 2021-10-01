@@ -139,14 +139,6 @@ class TeacherCreateView(LoginRequiredMixin, CreateView):
 	form_class = TeacherCreateForm
 	def get_context_data(self, **kwargs):
 		context = super(TeacherCreateView, self).get_context_data(**kwargs)
-		context["genders"] = Gender.objects.all()
-		context["educations"] = TeacherEducation.objects.all()
-		context["professions"] = TeacherProfession.objects.all()
-		context["responsibilities"] = TeacherResponsibility.objects.all()
-		context["salary_scales"] = TeacherSalaryScale.objects.all()
-		context["trainings"] = TeacherTraining.objects.all()
-		context["districts"] = District.objects.all()
-		context["subjects"] = Subject.objects.all()
 		context["title"] = "Teachers"
 		return context
 
@@ -1013,61 +1005,8 @@ def ministry_add_students(request, pk):
 	school = School.objects.get(pk=pk)
 	classes = None
 	ages = None
-	if(school.level_id==1):
-		classes = Class.objects.filter(pk__lte=3)
-	elif(school.level_id==2):
-		classes = Class.objects.filter(pk__gte=4, pk__lte=10,)
-	elif(school.level_id==3):
-		classes = Class.objects.filter(pk__gte=11, pk__lte=16,)
-	else:
-		classes = Class.objects.filter(pk__gt=16,)
-
-	if(school.level_id==1):
-		ages = AgeGroup.objects.filter(pk__lte=4)
-	elif(school.level_id==2):
-		ages = AgeGroup.objects.filter(pk__gte=5, pk__lte=12,)
-	elif(school.level_id==3):
-		ages = AgeGroup.objects.filter(pk__gte=13, pk__lte=22,)
-	else:
-		ages = AgeGroup.objects.filter(pk__gt=22,)
 	enrolment_list = []
 	total_rows = len(classes)*len(ages)
-	if request.method == 'POST':
-		student_form = StudentCreateForm(request.POST, )
-		if student_form.is_valid():
-			year = student_form.cleaned_data.get('year')
-			class_name = request.POST.getlist('class_name')
-			age = request.POST.getlist('age')
-			girls = request.POST.getlist('girls')
-			boys = request.POST.getlist('boys')
-			std_records = [class_name, age, boys, girls]
-			enrolment_list.append(std_records)
-			for c, a, g, b in enrolment_list:
-				some_data = []
-				for i in range(0, total_rows):
-					if g[i]=='':
-						g[i]=0
-					if b[i]=='':
-						b[i]=0
-					if int(g[i])>0 or int(b[i])>0:
-						some_data.append(Student(**{
-	                                        'year' : year,
-	                                        'user' : request.user,
-	                                        'school' : school,
-	                                        'class_name' : Class.objects.get(pk=c[i]),
-	                                        'age' : AgeGroup.objects.get(pk=a[i]),
-	                                        'girls' : g[i],
-	                                        'boys' : b[i],
-	                                        }))
-			# Student.objects.bulk_create(some_data)
-			try:
-				Student.objects.bulk_create(some_data)
-				messages.success(request, f'Enrolments for {year} have been recorded. Proceed to record Repeaters')
-				
-			except Exception:
-				messages.warning(request, f'ERROR! May be some enrolments of {year} are already recorded. Only Fill the ones that are not yet entered.')				
-	else:
-		student_form = StudentCreateForm()
 	context = {
 	'title': 'Students',
 	'sub_title': 'Enrolment',
@@ -1094,23 +1033,6 @@ def enrolments(request, pk):
 		year=year).aggregate(total_girls=Sum('girls'), total_boys=Sum('boys'))
 	classes = None
 	ages = None
-	if(pk==1):
-		classes = Class.objects.filter(pk__lte=3)
-	elif(pk==2):
-		classes = Class.objects.filter(pk__gte=4, pk__lte=10,)
-	elif(pk==3):
-		classes = Class.objects.filter(pk__gte=11, pk__lte=16,)
-	else:
-		classes = Class.objects.filter(pk__gt=16,)
-
-	if(pk==1):
-		ages = AgeGroup.objects.filter(pk__lte=4)
-	elif(pk==2):
-		ages = AgeGroup.objects.filter(pk__gte=5, pk__lte=12,)
-	elif(pk==3):
-		ages = AgeGroup.objects.filter(pk__gte=13, pk__lte=22,)
-	else:
-		ages = AgeGroup.objects.filter(pk__gt=22,)
 
 	context = {
 	'title': 'Students',
@@ -1136,14 +1058,6 @@ def repeaters(request, pk):
 	students = Repeater.objects.values('school__level','year','class_name').filter(school__level=level, year=year).annotate(total_girls=Sum('girls'), total_boys=Sum('boys'))
 	students_by_class = Repeater.objects.filter(school__level=level, 
 		year=year).aggregate(total_girls=Sum('girls'), total_boys=Sum('boys'))
-	if(pk==1):
-		classes = Class.objects.filter(pk__lte=3)
-	elif(pk==2):
-		classes = Class.objects.filter(pk__gte=4, pk__lte=10,)
-	elif(pk==3):
-		classes = Class.objects.filter(pk__gte=11, pk__lte=16,)
-	else:
-		classes = Class.objects.filter(pk__gt=16,)
 
 	context = {
 	'title': 'Students',
@@ -1171,14 +1085,6 @@ def nationality(request, pk):
 		year=year).aggregate(total_girls=Sum('girls'), total_boys=Sum('boys'))
 	classes = None
 	countries = Country.objects.all()
-	if(pk==1):
-		classes = Class.objects.filter(pk__lte=3)
-	elif(pk==2):
-		classes = Class.objects.filter(pk__gte=4, pk__lte=10,)
-	elif(pk==3):
-		classes = Class.objects.filter(pk__gte=11, pk__lte=16,)
-	else:
-		classes = Class.objects.filter(pk__gt=16,)
 
 	context = {
 	'title': 'Students',
@@ -1205,14 +1111,7 @@ def proposed_intake(request, pk):
 		year=year).annotate(total_girls=Sum('girls'), total_boys=Sum('boys'))
 	students_by_class = ProposedIntake.objects.filter(school__level=level, 
 		year=year).aggregate(total_girls=Sum('girls'), total_boys=Sum('boys'))
-	if(pk==1):
-		classes = IntakeClass.objects.filter(pk__lte=1)
-	elif(pk==2):
-		classes = IntakeClass.objects.filter(pk__gte=2, pk__lte=2,)
-	elif(pk==3):
-		classes = IntakeClass.objects.filter(pk__gte=3, pk__lte=5,)
-	else:
-		classes = IntakeClass.objects.filter(pk__gt=5,)
+	
 
 	context = {
 	'title': 'Students',
@@ -1235,14 +1134,7 @@ def physical_streams(request, pk):
 	students = PhysicalStream.objects.values('school__level','year','class_name').filter(school__level=level, year=year).annotate(total_streams=Sum('streams'))
 	students_by_stream = PhysicalStream.objects.filter(school__level=level, 
 		year=year).aggregate(total_streams=Sum('streams'))
-	if(pk==1):
-		classes = Class.objects.filter(pk__lte=3)
-	elif(pk==2):
-		classes = Class.objects.filter(pk__gte=4, pk__lte=10,)
-	elif(pk==3):
-		classes = Class.objects.filter(pk__gte=11, pk__lte=16,)
-	else:
-		classes = Class.objects.filter(pk__gt=16,)
+
 
 	context = {
 	'title': 'Students',
@@ -1270,14 +1162,7 @@ def orphans(request, pk):
 		year=year).aggregate(total_girls=Sum('girls'), total_boys=Sum('boys'))
 	classes = None
 	statuses = OrphanStatus.objects.all()
-	if(pk==1):
-		classes = Class.objects.filter(pk__lte=3)
-	elif(pk==2):
-		classes = Class.objects.filter(pk__gte=4, pk__lte=10,)
-	elif(pk==3):
-		classes = Class.objects.filter(pk__gte=11, pk__lte=16,)
-	else:
-		classes = Class.objects.filter(pk__gt=16,)
+
 
 	context = {
 	'title': 'Students',
@@ -1308,14 +1193,7 @@ def special_needs(request, pk):
 		year=year).aggregate(total_girls=Sum('girls'), total_boys=Sum('boys'))
 	classes = None
 	statuses = SpecialNeedStatus.objects.all()
-	if(pk==1):
-		classes = Class.objects.filter(pk__lte=3)
-	elif(pk==2):
-		classes = Class.objects.filter(pk__gte=4, pk__lte=10,)
-	elif(pk==3):
-		classes = Class.objects.filter(pk__gte=11, pk__lte=16,)
-	else:
-		classes = Class.objects.filter(pk__gt=16,)
+
 
 	context = {
 	'title': 'Students',
@@ -1341,24 +1219,7 @@ def new_entrants(request, pk):
 	students_by_age = NewEntrant.objects.filter(school__level=level, 
 		year=year).aggregate(total_girls=Sum('girls'), total_boys=Sum('boys'))
 	ages = None
-	if(pk==1):
-		ages = AgeGroup.objects.filter(pk__lte=4)
-	elif(pk==2):
-		ages = AgeGroup.objects.filter(pk__gte=5, pk__lte=10,)
-	elif(pk==3):
-		ages = AgeGroup.objects.filter(pk__gte=13, pk__lte=20,)
-	else:
-		ages = AgeGroup.objects.filter(pk__gt=22,)
-
-	classes = None
-	if(pk==1):
-		classes = Class.objects.get(pk=1)
-	elif(pk==2):
-		classes = Class.objects.get(pk=4)
-	elif(pk==3):
-		classes = Class.objects.get(pk=11)
-	else:
-		classes = Class.objects.get(pk=17)
+	
 
 	context = {
 	'title': 'Students',
@@ -1382,14 +1243,7 @@ def seating_and_writing_space(request, pk):
 	students = SeatingAndWritingSpace.objects.values('school__level','year','class_name').filter(school__level=level, year=year).annotate(total_pupils=Sum('pupils'))
 	students_by_class = SeatingAndWritingSpace.objects.filter(school__level=level, 
 		year=year).aggregate(total_pupils=Sum('pupils'))
-	if(pk==1):
-		classes = Class.objects.filter(pk__lte=3)
-	elif(pk==2):
-		classes = Class.objects.filter(pk__gte=4, pk__lte=10,)
-	elif(pk==3):
-		classes = Class.objects.filter(pk__gte=11, pk__lte=16,)
-	else:
-		classes = Class.objects.filter(pk__gt=16,)
+	
 
 	context = {
 	'title': 'Students',

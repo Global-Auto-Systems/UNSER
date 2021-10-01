@@ -91,18 +91,3 @@ class UnderConstructionBuildingCreateForm(forms.ModelForm):
 	class Meta:
 		model = UnderConstructionBuilding
 		fields =('room_type','room_completion','rooms','year')
-
-class NeededBuildingCreateForm(forms.ModelForm):
-	class Meta:
-		model = NeededBuilding
-		fields =('room_type','rooms','year')
-
-class WaterAndEnergySourceCreateForm(forms.ModelForm):
-	class Meta:
-		model = WaterAndEnergySource
-		fields =('water_source','distance_to_water_source','energy_source','year')
-
-class LatrineCreateForm(forms.ModelForm):
-	class Meta:
-		model = Latrine
-		fields =('use','state','rooms','year')
