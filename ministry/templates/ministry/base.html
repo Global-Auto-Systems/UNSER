@@ -219,24 +219,152 @@
                         </li>
                         <li class="{% if title == 'Facilities'  %} active {% endif %}"><a data-toggle="tab" href="#facilities">Facilities</a>
                         </li>
-                        <li class="{% if title == 'Resources'  %} active {% endif %}"><a data-toggle="tab" href="#resources">Resources</a>
+                        <li class="{% if title == 'Resources'  %} active {% endif %}"><a data-toggle="tab" href="#resources">whislists</a>
                         </li>
                         <li class="{% if title == 'Results'  %} active {% endif %}"><a data-toggle="tab" href="#results">UNEB Results</a>
                         </li>
-                        <li class="{% if title == 'Marketing'  %} active {% endif %}"><a data-toggle="tab" href="#marketing">Marketing</a>
+                        <li class="{% if title == 'Marketing'  %} active {% endif %}"><a data-toggle="tab" href="#marketing">Market Place</a>
                         </li>
                         <li class="{% if title == 'Inbox'  %} active {% endif %}"><a data-toggle="tab" href="#inbox">Inbox</a>
                         </li>
                         <li class="{% if title == 'Settings'  %} active {% endif %}"><a data-toggle="tab" href="#settings">Settings</a>
                         </li>
-                        <li><a class="btn btn-primary" href="https://sms.globalautosystems.tech/" target="_blank">Pro</a>
+                        <li><a class="btn btn-primary" href="https://sms.globalautosystems.tech/" target="_blank">SMS</a>
                         </li>
                     {% endif %}
+                    {% elif request.user|has_group:"Marketing" %}
+                    <li class="{% if title == 'Home'  %} active {% endif %}"><a data-toggle="tab" href="#Home">Home</a>
+                    </li>
+                    <li class="{% if title == 'Profile'  %} active {% endif %}"><a data-toggle="tab" href="#profile">Profile</a>
+                    </li>
+                    <li class="{% if title == 'Whislists'  %} active {% endif %}"><a data-toggle="tab" href="#whislists">Schools Whislists</a>
+                    </li>
+                    <li class="{% if title == 'Products'  %} active {% endif %}"><a data-toggle="tab" href="#products">Products</a>
+                    </li>
+                    <li class="{% if title == 'Orders'  %} active {% endif %}"><a data-toggle="tab" href="#orders">Oders</a>
+                    </li>
+                    <li class="{% if title == 'Bids'  %} active {% endif %}"><a data-toggle="tab" href="#bids">Bids</a>
+                    </li>
+                    <li class="{% if title == 'Communication'  %} active {% endif %}"><a data-toggle="tab" href="#communication">Communication</a>
+                    </li>
+                    {% elif request.user|has_group:"Partner" %}
+                    <li class="{% if title == 'Home'  %} active {% endif %}"><a data-toggle="tab" href="#home">Home</a>
+                    </li>
+                    <li class="{% if title == 'Whislists'  %} active {% endif %}"><a data-toggle="tab" href="#whislists">Schools Whislists</a>
+                    </li>
+                    <li class="{% if title == 'Proposals'  %} active {% endif %}"><a data-toggle="tab" href="#proposals">Proposals</a>
+                    </li>
+                    <li class="{% if title == 'Interests'  %} active {% endif %}"><a data-toggle="tab" href="#interests">Expressions of Interest</a>
+                    </li>
+                    <li class="{% if title == 'Projects'  %} active {% endif %}"><a data-toggle="tab" href="#projects">Projects</a>
+                    </li>
+                    <li class="{% if title == 'Communication'  %} active {% endif %}"><a data-toggle="tab" href="#communication">Communication</a>
+                    </li>
+                    {% elif request.user|has_group:"Police" %}
+                    <li class="{% if title == 'Home'  %} active {% endif %}"><a data-toggle="tab" href="#Home">Home</a>
+                    </li>
+                    <li class="{% if title == 'New Cases'  %} active {% endif %}"><a data-toggle="tab" href="#newcases">New Cases</a>
+                    </li>
+                    <li class="{% if title == 'Open Cases'  %} active {% endif %}"><a data-toggle="tab" href="#opencases">Open Cases</a>
+                    </li>
+                    <li class="{% if title == 'Closed Cases'  %} active {% endif %}"><a data-toggle="tab" href="#oldcases">Closed Cases</a>
+                    </li>
+                    <li class="{% if title == 'Authorities'  %} active {% endif %}"><a data-toggle="tab" href="#authorities">Authorities</a>
+                    </li>
+                    <li class="{% if title == 'Communication'  %} active {% endif %}"><a data-toggle="tab" href="#communication">Communication</a>
+                    </li>
+                    <li class="nav-item dropdown" style="color: white; margin-top: 15px; margin-left: 250px;">{{user.first_name}}
+                    
+                    </li>
+
                     {% endif %}
-
-
                     </ul>
                     <div class="tab-content custom-menu-content shadow-reset">
+                        {% if request.user|has_group:"Marketing" %}
+                        <div id="Home" class="tab-pane {% if title == 'Home'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
+                            <ul class="main-menu-dropdown">
+                                <li class="active" ><a href="">Home</a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                        <div id="profile" class="tab-pane {% if title == 'Profile'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
+                            <ul class="main-menu-dropdown">
+                                <li class="active" ><a href="">Update Profile</a>
+                                </li>
+                                <li class="active" ><a href="">View Profile</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="whislists" class="tab-pane {% if title == 'whislists'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
+                            <ul class="main-menu-dropdown">
+                                <li class="active" ><a href="">Recent whislists</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% if request.user|has_group:"Police" %}
+                        <div id="Home" class="tab-pane {% if title == 'Home'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
+                            <ul class="main-menu-dropdown">
+                                <li class="active" ><a href="">Home</a>
+                                </li>
+                                <li class="active" ><a href="">Calendar</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% if request.user|has_group:"Police" %}
+                        <div id="cases" class="tab-pane {% if title == 'Cases'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
+                            <ul class="main-menu-dropdown">
+                                <li class="active" ><a href="">New Cases</a>
+                                </li>
+                                <li class="active" ><a href="">Open Cases</a>
+                                </li>
+                                <li class="active" ><a href="">Closed Cases</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                        {% if request.user|has_group:"Partner" %}
+                        <div id="home" class="tab-pane {% if title == 'Home'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
+                            <ul class="main-menu-dropdown">
+                                <li class="active" ><a href="">Home</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="whislists" class="tab-pane {% if title == 'whislists'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
+                            <ul class="main-menu-dropdown">
+                                <li class="active" ><a href="">Recent whislists</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="proposals" class="tab-pane {% if title == 'Proposals'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
+                            <ul class="main-menu-dropdown">
+                                <li class="active" ><a href="">Add new request for proposals</a>
+                                </li>
+                                <li class="active" ><a href="">Active requests for proposals</a>
+                                </li>
+                                <li class="active" ><a href="">Past requests for proposals</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="interests" class="tab-pane {% if title == 'Interests'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
+                            <ul class="main-menu-dropdown">
+                                <li class="active" ><a href="">Expressions of Interest</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="projects" class="tab-pane {% if title == 'Projects'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
+                            <ul class="main-menu-dropdown">
+                                <li class="active" ><a href="">Add project</a>
+                                </li>
+                                <li class="active" ><a href="">Active projects</a>
+                                </li>
+                                <li class="active" ><a href="">Finished projects</a>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
                     {% if request.user|has_group:"Ministry" %}
                         <div id="Home" class="tab-pane {% if title == 'Home'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
                             <ul class="main-menu-dropdown">
@@ -331,11 +459,11 @@
                         </div>
                         <div id="marketing" class="tab-pane {% if title == 'Marketing'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
                             <ul class="main-menu-dropdown">
-                                <li><a href="{% url 'ministry-home' %}">Add Product</a>
+                                <li><a href="">Add Product</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">My Products</a>
+                                <li><a href="">My Products</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Products On Sale</a>
+                                <li><a href="">Products On Sale</a>
                                 </li>
                             </ul>
                         </div>
@@ -349,17 +477,17 @@
                         </div>
                         <div id="settings" class="tab-pane {% if title == 'Settings'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
                             <ul class="main-menu-dropdown">
-                                <li><a href="{% url 'ministry-home' %}">School</a>
+                                <li><a href="">School</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Teacher</a>
+                                <li><a href="">Teacher</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Resource</a>
+                                <li><a href="">Resource</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">DEOs</a>
+                                <li><a href="">DEOs</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Marketing</a>
+                                <li><a href="">Marketing</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Inbox</a>
+                                <li><a href="">Inbox</a>
                                 <li><a href="{% url 'logout' %}">Logout</a>
                                 </li>
                             </ul>
@@ -391,8 +519,8 @@
                                 <li><a href="{% url 'add-buildings-needed'  %}">Rooms Needed</a></li>
                                 <li><a href="{% url 'add-water-and-energy-sources'  %}">Water & Energy Sources</a></li>
                                 <li><a href="{% url 'add-latrines'  %}">Latrine</a></li>
-                                <li><a href="{% url 'school-home'  %}">View Rooms</a></li>
-                                <li><a href="{% url 'school-home'  %}">View Rooms Under Construction</a></li>
+                                <li><a href="">View Rooms</a></li>
+                                <li><a href="">View Rooms Under Construction</a></li>
                             </ul>
                         </div>
                         <div id="students" class="tab-pane {% if title == 'Students'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
@@ -404,9 +532,9 @@
                         </div>
                         <div id="results" class="tab-pane {% if title == 'Results'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
                             <ul class="main-menu-dropdown">
-                                <li><a href="{% url 'ministry-home'  %}">View S4 Results</a>
+                                <li><a href="">View S4 Results</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home'  %}">View S6 Results</a>
+                                <li><a href="">View S6 Results</a>
                                 </li>
                             </ul>
                         </div>
@@ -434,39 +562,41 @@
                         </div>
                         <div id="marketing" class="tab-pane {% if title == 'Marketing'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
                             <ul class="main-menu-dropdown">
-                                <li><a href="{% url 'ministry-home' %}">Add Product</a>
+                                <li><a href="">Add Product</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">My Peoducts</a>
+                                <li><a href="">View Products</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Peoducts On Sale</a>
+                                <li><a href="">Networking</a>
+                                </li>
+                                <li><a href="">Auctioned Items</a>
                                 </li>
                             </ul>
                         </div>
                         <div id="inbox" class="tab-pane {% if title == 'Inbox'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
                             <ul class="main-menu-dropdown">
-                                <li><a href="{% url 'ministry-home' %}">Compose</a>
+                                <li><a href="">Compose</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Inbox</a>
+                                <li><a href="">Inbox</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Send</a>
+                                <li><a href="">Send</a>
                                 </li>
                             </ul>
                         </div>
                         <div id="settings" class="tab-pane {% if title == 'Settings'  %} in active {% endif %} tab-custon-menu-bg animated flipInX">
                             <ul class="main-menu-dropdown">
-                                <li><a href="{% url 'ministry-home' %}">School</a>
+                                <li><a href="">School</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Teacher</a>
+                                <li><a href="">Teacher</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Resource</a>
+                                <li><a href="">Resource</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Facility</a>
+                                <li><a href="">Facility</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Student</a>
+                                <li><a href="">Student</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Marketing</a>
+                                <li><a href="">Marketing</a>
                                 </li>
-                                <li><a href="{% url 'ministry-home' %}">Inbox</a>
+                                <li><a href="">Inbox</a>
                                 <li><a href="{% url 'logout' %}">logout</a>
                                 </li>
                             </ul>

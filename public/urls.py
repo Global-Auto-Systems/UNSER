@@ -1,5 +1,4 @@
 from django.urls import path
-from django.conf.urls import url
 from . import views
 from .views import *
 from django.views.generic import TemplateView
@@ -22,7 +21,7 @@ urlpatterns = [
     path('DEOs/', views.deos, name='website-deos'),
     path('results/', views.results, name='website-results'),
     path('marketing/', views.marketing, name='website-marketing'),
-    path('service_providers/<int:pk>/', views.service_providers, name='service-providers'),
+    path('service_providers/', views.service_providers, name='service-providers'),
     path('apply/', views.apply, name='apply'),
     path('covid19/', views.covid19, name='covid19'),
     path('report/', views.report, name='report'),

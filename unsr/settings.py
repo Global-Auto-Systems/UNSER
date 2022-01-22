@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'school.apps.SchoolConfig',
     'deo.apps.DeoConfig',
     'teacher.apps.TeacherConfig',
+    'partners.apps.PartnersConfig',
+    'serviceproviders.apps.ServiceprovidersConfig',
+    'lawenforcement.apps.LawenforcementConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,7 +48,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-
 ]
 
 MIDDLEWARE = [
@@ -142,5 +144,7 @@ PUBLIC_GROUP_ID = 3
 SCHOOL_GROUP_ID = 4
 TEACHER_GROUP_ID = 5
 MARKETING_GROUP_ID = 6
+POLICE_GROUP_ID = 7
+PARTNER_GROUP_ID = 8
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'

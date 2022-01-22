@@ -26,6 +26,12 @@ def login_success(request):
 		return redirect('ministry-home')
 	if usergroup == settings.SCHOOL_GROUP_ID:
 		return redirect('school-home')
+	if usergroup == settings.PARTNER_GROUP_ID:
+		return redirect('partners-home')
+	if usergroup == settings.MARKETING_GROUP_ID:
+		return redirect('serviceproviders-home')
+	if usergroup == settings.POLICE_GROUP_ID:
+		return redirect('police-home')
 	else:
 		return redirect('website-home')
 

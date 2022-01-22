@@ -222,18 +222,18 @@
                                     <a href="{% url 'register-school' %}" class="dropdown-item" style="background-color: red;">Apply to be listed</a>
                                 </div>
                             </li>
-                            <li class="nav-item"><a href="{% url 'website-deos' %}" class="nav-link">D.E.Os</a>
-                            </li>
-                            <li class="nav-item"><a href="{% url 'website-teachers' %}" class="nav-link">Teachers</a>
+                            <li class="nav-item dropdown">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Personnel <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+                                <div role="menu" class="dropdown-menu">
+                                    <a href="{% url 'website-deos' %}" class="dropdown-item">D.E.Os</a>
+                                    <a href="{% url 'website-teachers' %}" class="dropdown-item">Teachers</a>
+                                </div>
                             </li>
                             <li class="nav-item dropdown">
-                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Service Providers <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Digital Market Place <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                 <div role="menu" class="dropdown-menu">
-                                    <a href="{% url 'service-providers' 1 %}" class="dropdown-item">Lab Chemicals</a>
-                                    <a href="{% url 'service-providers' 2 %}" class="dropdown-item">Lab Equipment</a>
-                                    <a href="{% url 'service-providers' 3 %}" class="dropdown-item">Furniture & Fitting</a>
-                                    <a href="{% url 'service-providers' 4 %}" class="dropdown-item">Food</a>
-                                    <a href="{% url 'service-providers' 5 %}" class="dropdown-item">Stationery</a>
+                                    <a href="" class="dropdown-item">Market Place</a>
+                                    <a href="{% url 'service-providers' %}" class="dropdown-item">Service Providers</a>
                                     <a href="{% url 'apply' %}" class="dropdown-item" style="background-color: red;">Apply to be listed</a>
                                 </div>
                             </li>
@@ -243,6 +243,7 @@
                                     <a href="{% url 'website-resources' %}" class="dropdown-item">Resources</a>
                                     <a href="{% url 'website-communication' %}" class="dropdown-item">Messages</a>
                                     <a href="" class="dropdown-item">News and Events</a>
+                                    <a href="" class="dropdown-item">Public Reviews</a>
                                 </div>
                             </li>
                             <li class="nav-item"><a href="{% url 'covid19' %}" class="nav-link">Learning Materials</a>
@@ -321,27 +322,25 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li class="nav-item"><a href="{% url 'website-deos' %}" class="nav-link">D.E.Os</a>
-                                    </li>
-                                    <li class="nav-item"><a href="{% url 'website-teachers' %}" class="nav-link">Teachers</a>
+                                    <li class="nav-item dropdown">
+                                        <a data-toggle="collapse" data-target="#personnel" href="#">Personnel <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+                                        <ul id="personnel" class="collapse dropdown-header-top" style="margin-left: 15px;">
+                                            <li class="active">
+                                                <a href="{% url 'website-deos' %}" class="dropdown-item">D.E.Os</a>
+                                            </li>
+                                            <li class="active">
+                                                <a href="{% url 'website-teachers' %}" class="dropdown-item">Teachers</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a data-toggle="collapse" data-target="#Providers" href="#">Service Providers <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
+                                        <a data-toggle="collapse" data-target="#Providers" href="#">Digital Market Place <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
                                         <ul id="Providers" class="collapse dropdown-header-top" style="margin-left: 15px;">
                                             <li class="active">
-                                                <a href="{% url 'service-providers' 1 %}" class="dropdown-item">Lab Chemicals</a>
+                                                <a href="" class="dropdown-item">Market Place</a>
                                             </li>
                                             <li class="active">
-                                                <a href="{% url 'service-providers' 2 %}" class="dropdown-item">Lab Equipment</a>
-                                            </li>
-                                            <li class="active">
-                                                <a href="{% url 'service-providers' 3 %}" class="dropdown-item">Furniture & Fitting</a>
-                                            </li>
-                                            <li class="active">
-                                                <a href="{% url 'service-providers' 4 %}" class="dropdown-item">Food</a>
-                                            </li>
-                                            <li class="active">
-                                                <a href="{% url 'service-providers' 5 %}" class="dropdown-item">Stationery</a>
+                                                <a href="{% url 'service-providers' %}" class="dropdown-item">Service Providers</a>
                                             </li>
                                             <li class="active">
                                                 <a href="{% url 'apply' %}" class="dropdown-item" style="background-color: red;">Apply to be listed</a>
@@ -359,6 +358,9 @@
                                             </li>
                                             <li class="active">
                                                 <a href="" class="dropdown-item">News and Events</a>
+                                            </li>
+                                            <li class="active">
+                                                <a href="" class="dropdown-item">Public Reviews</a>
                                             </li>
                                         </ul>
                                     </li>
@@ -451,7 +453,7 @@
             <div id="chat" class="collapse chat-box-wrap shadow-reset animated zoomInLeft">
                 <div class="chat-main-list">
                     <div class="chat-heading">
-                        <h2>School Buzz</h2>
+                        <h2>SchoolBuzz Chatbot</h2>
                     </div>
                     <div class="chat-content chat-scrollbar">
                         <div class="author-chat">

@@ -322,16 +322,14 @@ def deos(request):
 	deos = paginator.get_page(page)
 	return render(request, 'public/DEOs.html', {'title': 'DEOs','deos': deos})
 
-def service_providers(request, pk):
-	service = Service.objects.get(pk=pk)
-	provider_list = ServiceProvider.objects.filter(service=pk, status=2).order_by('name')
+def service_providers(request):
+	provider_list = ServiceProvider.objects.filter(status=2).order_by('name')
 	paginator = Paginator(provider_list, 1000)
 	page = request.GET.get('page')
 	service_providers = paginator.get_page(page)
 	context = {
 	'title': 'Service Providers', 
-	'service_providers': service_providers, 
-	'service':service,
+	'service_providers': service_providers,
 
 	}
 	return render(request, 'public/service_providers.html', context)
