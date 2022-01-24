@@ -7,8 +7,8 @@ urlpatterns = [
 	path('', include('public.urls')),
 	path('users/', include('users.urls')),
 	path('ministry/', include('ministry.urls')),
-	path('school/', include('school.urls')),
-    path('admin/', admin.site.urls),
+	path('schools/', include('school.urls')),
+    path('control/', admin.site.urls),
 ]
 if settings.DEBUG:
 	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
