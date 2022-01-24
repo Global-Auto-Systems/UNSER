@@ -50,6 +50,28 @@ def schools(request, pk):
 	}
 	return render(request, 'public/schools.html', context)
 
+def university(request, pk):
+	item = District.objects.first()
+	if request.GET.get('dist', None):
+		dis_id=request.GET.get('dist', None)
+		item = District.objects.get(pk=dis_id)
+	level = Level.objects.get(pk=pk)
+	schools = School.objects.filter(level=level, parish__district=item)
+	records = District.objects.annotate(total_schools=Count('parish__school'))
+	context = {
+	'title': 'Schools',
+	'head': 'in',
+	'sub_title': 'District',
+	'link': 'dist',
+	'side_title': 'Districts',
+	'schools':schools,
+	'records':records,
+	'level':level,
+	'item':item,
+
+	}
+	return render(request, 'public/schools.html', context)
+
 def operation_status(request, pk):
 	item = Schtype.objects.first()
 	if request.GET.get('status', None):
@@ -300,16 +322,14 @@ def deos(request):
 	deos = paginator.get_page(page)
 	return render(request, 'public/DEOs.html', {'title': 'DEOs','deos': deos})
 
-def service_providers(request, pk):
-	service = Service.objects.get(pk=pk)
-	provider_list = ServiceProvider.objects.filter(service=pk, status=2).order_by('name')
+def service_providers(request):
+	provider_list = ServiceProvider.objects.filter(status=2).order_by('name')
 	paginator = Paginator(provider_list, 1000)
 	page = request.GET.get('page')
 	service_providers = paginator.get_page(page)
 	context = {
 	'title': 'Service Providers', 
-	'service_providers': service_providers, 
-	'service':service,
+	'service_providers': service_providers,
 
 	}
 	return render(request, 'public/service_providers.html', context)
@@ -331,8 +351,27 @@ def apply(request):
 	'title': 'Service Providers',
 	'apply_form': apply_form,
 	}
-
 	return render(request, 'public/apply_form.html', context)
+
+def report(request):
+	if request.method == 'POST':
+		form = ReportCreateForm(request.POST, request.FILES,)
+		if form.is_valid():
+			try:
+				form.save()
+				messages.success(request, f'Thank you! You have reported your case successifully.')
+				return HttpResponseRedirect(reverse('report'))
+			except Exception:
+				messages.warning(request, f'Error! Your case is not reported, Try again!')		
+	else:
+		form = ReportCreateForm()
+
+	context = {
+	'title': 'Report',
+	'form': form,
+	'groups': Group.objects.filter(pk__lte=4),
+	}
+	return render(request, 'public/report.html', context)
 
 def covid19(request):
 	classes = Classe.objects.annotate(uploads=Count('lockdownpackage')).order_by('id')
@@ -354,14 +393,61 @@ def covid19_downloads(request, pk):
 def results(request):
 	return render(request, 'public/results.html', {'title': 'UNEB Results'})
 
+def uace_results(request):
+	year = 2020
+	if request.GET.get('year', None):
+		year = request.GET.get('year', None)
+	the_results = SchoolRankUACE.objects.filter(year=year).order_by('rank')[:500]
+	context = {
+		'title': 'UNEB Results',
+		'results':the_results,
+		'year':year,
+	}
+	return render(request, 'public/results_uace.html', context)
+
+def uce_results(request):
+	year = 2020
+	if request.GET.get('year', None):
+		year = request.GET.get('year', None)
+	the_results = SchoolRankUCE.objects.filter(year=year).order_by('rank')[:500]
+
+	context = {
+		'title': 'UNEB Results',
+		'head': 'UCE',
+		'results':the_results,
+		'year':year
+	}
+	return render(request, 'public/results_uce.html', context)
+
+def ple_results(request):
+	year = 2020
+	if request.GET.get('year', None):
+		year = request.GET.get('year', None)
+	the_results = SchoolRankPLE.objects.filter(year=year).order_by('rank')[:500]
+	context = {
+		'title': 'UNEB Results',
+		'head': 'PLE',
+		'results':the_results,
+		'year':year
+	}
+	return render(request, 'public/results_uce.html', context)
+
 def marketing(request):
 	return render(request, 'public/marketing.html', {'title': 'Marketing'})
 
 def communication(request):
-	return render(request, 'public/communication.html', {'title': 'Communication'})
+	context = {
+		'title': 'Communication',
+		'communications':Communication.objects.all().order_by('-id')[:500]
+		}
+	return render(request, 'public/communication.html', context)
 
 def resources(request):
-	return render(request, 'public/resources.html', {'title': 'Resources'})
+	context = {
+		'title':'Resources',
+		'resources':DownloadResource.objects.all().order_by('-id')[:500]
+	}
+	return render(request, 'public/resources.html', context)
 
 def settings(request):
 	return render(request, 'public/settings.html', {'title': 'Settings'})

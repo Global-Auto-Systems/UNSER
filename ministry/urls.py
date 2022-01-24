@@ -4,6 +4,9 @@ from . import views
 
 urlpatterns = [
     # Home related urls-----------------------------------------------------------------------------
+    path('upload_uace/', UACEUploadView.as_view(), name='upload_uace' ),
+    path('upload_uce/', UCEUploadView.as_view(), name='upload_uce' ),
+    path('upload_upe/', UPEUploadView.as_view(), name='upload_upe' ),
     path('upload_service_provider/', ServiceProviderUploadView.as_view(), name='upload_service_provider' ),
     path('upload_district/', DistrictUploadView.as_view(), name='upload_district' ),
     path('upload_county/', CountyUploadView.as_view(), name='upload_county' ),
@@ -136,9 +139,11 @@ urlpatterns = [
     path('marketing/product-status/<int:pk>/update/', ProductStatusUpdateView.as_view(), name='update-product-status'),
 
     # Communication related urls-----------------------------------------------------------------------------
-    path('communication/', views.communication, name='strack-communication'),
+    path('communication/', views.communication, name='communication'),
+    path('resource/', views.download_resource, name='download-resource'),
     # Settings related urls-----------------------------------------------------------------------------
     path('settings/', views.settings, name='strack-settings'),
     path('subjects/', SubjectCreateView.as_view(), name='subject'),
     path('subjects/<int:pk>/update/', SubjectUpdateView.as_view(), name='update-subject'),
+
 ]

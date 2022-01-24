@@ -36,6 +36,16 @@ class TeacherTransferForm(forms.ModelForm):
 		model = TransferTeacher
 		fields =('teacher','school','date_transfered','date_valid','designation')
 
+class CommunicationCreateForm(forms.ModelForm):
+	class Meta:
+		model = Communication
+		fields =('topic','message','date','upload',)
+
+class DownloadResourceCreateForm(forms.ModelForm):
+	class Meta:
+		model = DownloadResource
+		fields =('topic','upload','date',)
+
 class UploadDistrict(forms.Form):
 	data_file = forms.FileField()
 
@@ -50,6 +60,33 @@ class UploadDistrict(forms.Form):
 			else:
 				region = Region.objects.get(pk = 1)
 			District.objects.create(dis_name=record['dis_name'], region=region )
+
+class UploadUACE(forms.Form):
+	data_file = forms.FileField()
+	def process_data(self):
+		f = io.TextIOWrapper(self.cleaned_data['data_file'].file)
+		reader = csv.DictReader(f)
+
+		for record in reader:
+			SchoolRankUACE.objects.create(rank=record['rank'], school=record['school'], number=record['number'], year=record['year'],)
+
+class UploadUCE(forms.Form):
+	data_file = forms.FileField()
+	def process_data(self):
+		f = io.TextIOWrapper(self.cleaned_data['data_file'].file)
+		reader = csv.DictReader(f)
+
+		for record in reader:
+			SchoolRankUCE.objects.create(rank=record['rank'], school=record['school'], div1=record['div1'], div2=record['div2'], div3=record['div3'], div4=record['div4'], year=record['year'],)
+
+class UploadUPE(forms.Form):
+	data_file = forms.FileField()
+	def process_data(self):
+		f = io.TextIOWrapper(self.cleaned_data['data_file'].file)
+		reader = csv.DictReader(f)
+
+		for record in reader:
+			SchoolRankPLE.objects.create(rank=record['rank'], school=record['school'], div1=record['div1'], div2=record['div2'], div3=record['div3'], div4=record['div4'], year=record['year'],)
 
 class UploadCounty(forms.Form):
 	data_file = forms.FileField()

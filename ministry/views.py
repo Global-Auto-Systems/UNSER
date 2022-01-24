@@ -640,108 +640,108 @@ class RegionUpdateView(LoginRequiredMixin, UpdateView):
 # Fac settings related views..................................................................................
 
 class FacilityTypeView(LoginRequiredMixin, CreateView):
-    model = FacilityType
-    fields =['facility_type']
-    template_name = "ministry/facility_type_form.html"
-    def get_context_data(self, **kwargs):
-        context = super(FacilityTypeView, self).get_context_data(**kwargs)
-        context["fac_types"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('factype')
+	model = FacilityType
+	fields =['facility_type']
+	template_name = "ministry/facility_type_form.html"
+	def get_context_data(self, **kwargs):
+		context = super(FacilityTypeView, self).get_context_data(**kwargs)
+		context["fac_types"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('factype')
 
 class FacilityTypeUpdateView(LoginRequiredMixin, UpdateView):
-    model = FacilityType
-    fields =['facility_type']
-    template_name = "ministry/facility_type_form.html"
-    def get_context_data(self, **kwargs):
-        context = super(FacilityTypeUpdateView, self).get_context_data(**kwargs)
-        context["fac_types"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('factype')
+	model = FacilityType
+	fields =['facility_type']
+	template_name = "ministry/facility_type_form.html"
+	def get_context_data(self, **kwargs):
+		context = super(FacilityTypeUpdateView, self).get_context_data(**kwargs)
+		context["fac_types"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('factype')
 
 class FacilityStatusView(LoginRequiredMixin, CreateView):
-    model = FacilityStatus
-    fields =['facility_status']
-    template_name = "ministry/facility_status_form.html"
-    def get_context_data(self, **kwargs):
-        context = super(FacilityStatusView, self).get_context_data(**kwargs)
-        context["statuses"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('facstatus')
-    	
+	model = FacilityStatus
+	fields =['facility_status']
+	template_name = "ministry/facility_status_form.html"
+	def get_context_data(self, **kwargs):
+		context = super(FacilityStatusView, self).get_context_data(**kwargs)
+		context["statuses"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('facstatus')
+		
 class FacilityStatusUpdateView(LoginRequiredMixin, UpdateView):
-    model = FacilityStatus
-    fields =['facility_status']
-    template_name = "ministry/facility_status_form.html"
-    def get_context_data(self, **kwargs):
-        context = super(FacilityStatusUpdateView, self).get_context_data(**kwargs)
-        context["statuses"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('facstatus')
+	model = FacilityStatus
+	fields =['facility_status']
+	template_name = "ministry/facility_status_form.html"
+	def get_context_data(self, **kwargs):
+		context = super(FacilityStatusUpdateView, self).get_context_data(**kwargs)
+		context["statuses"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('facstatus')
 
 class TeacherStatusCreateView(LoginRequiredMixin, CreateView):
-    model = TeacherStatus
-    fields =['teacher_status']
-    def get_context_data(self, **kwargs):
-        context = super(TeacherStatusCreateView, self).get_context_data(**kwargs)
-        context["statuses"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('teacher-status')
+	model = TeacherStatus
+	fields =['teacher_status']
+	def get_context_data(self, **kwargs):
+		context = super(TeacherStatusCreateView, self).get_context_data(**kwargs)
+		context["statuses"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('teacher-status')
 
 
 # Teacher settings related views..................................................................................
 # Teacher settings views..................................................................................
 
 class TeacherStatusUpdateView(LoginRequiredMixin, UpdateView):
-    model = TeacherStatus
-    fields =['teacher_status']
-    def get_context_data(self, **kwargs):
-        context = super(TeacherStatusUpdateView, self).get_context_data(**kwargs)
-        context["statuses"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('teacher-status')
+	model = TeacherStatus
+	fields =['teacher_status']
+	def get_context_data(self, **kwargs):
+		context = super(TeacherStatusUpdateView, self).get_context_data(**kwargs)
+		context["statuses"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('teacher-status')
 
 class GenderCreateView(LoginRequiredMixin, CreateView):
-    model = Gender
-    fields =['gender']
-    def get_context_data(self, **kwargs):
-        context = super(GenderCreateView, self).get_context_data(**kwargs)
-        context["gender_types"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('gender')
+	model = Gender
+	fields =['gender']
+	def get_context_data(self, **kwargs):
+		context = super(GenderCreateView, self).get_context_data(**kwargs)
+		context["gender_types"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('gender')
 
 class GenderUpdateView(LoginRequiredMixin, UpdateView):
-    model = Gender
-    fields =['gender']
-    def get_context_data(self, **kwargs):
-        context = super(GenderUpdateView, self).get_context_data(**kwargs)
-        context["gender_types"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('gender')
+	model = Gender
+	fields =['gender']
+	def get_context_data(self, **kwargs):
+		context = super(GenderUpdateView, self).get_context_data(**kwargs)
+		context["gender_types"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('gender')
 
 # Resource related views..................................................................................
 # Resource related views..................................................................................
@@ -787,28 +787,28 @@ class ResourceListView(ListView):
 		return context
 
 class ResourceTypeCreateView(LoginRequiredMixin, CreateView):
-    model = ResourceType
-    fields =['resource_type']
-    def get_context_data(self, **kwargs):
-        context = super(ResourceTypeCreateView, self).get_context_data(**kwargs)
-        context["resource_types"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('resource-type')
+	model = ResourceType
+	fields =['resource_type']
+	def get_context_data(self, **kwargs):
+		context = super(ResourceTypeCreateView, self).get_context_data(**kwargs)
+		context["resource_types"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('resource-type')
 
 class ResourceTypeUpdateView(LoginRequiredMixin, UpdateView):
-    model = ResourceType
-    fields =['resource_type']
-    def get_context_data(self, **kwargs):
-        context = super(ResourceTypeUpdateView, self).get_context_data(**kwargs)
-        context["resource_types"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('resource-type')
+	model = ResourceType
+	fields =['resource_type']
+	def get_context_data(self, **kwargs):
+		context = super(ResourceTypeUpdateView, self).get_context_data(**kwargs)
+		context["resource_types"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('resource-type')
 
 class ResourceCreateView(LoginRequiredMixin, CreateView):
 	model = Resource
@@ -953,28 +953,28 @@ class ProductDetailView(DetailView):
 	model = Product
 
 class ProductStatusCreateView(LoginRequiredMixin, CreateView):
-    model = ProductStatus
-    fields =['status']
-    def get_context_data(self, **kwargs):
-        context = super(ProductStatusCreateView, self).get_context_data(**kwargs)
-        context["statuses"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('product-status')
+	model = ProductStatus
+	fields =['status']
+	def get_context_data(self, **kwargs):
+		context = super(ProductStatusCreateView, self).get_context_data(**kwargs)
+		context["statuses"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('product-status')
 
 class ProductStatusUpdateView(LoginRequiredMixin, UpdateView):
-    model = ProductStatus
-    fields =['status']
-    def get_context_data(self, **kwargs):
-        context = super(ProductStatusUpdateView, self).get_context_data(**kwargs)
-        context["statuses"] = self.model.objects.all().order_by('-id')
-        return context
-    def form_valid(self, form):
-    	if form.is_valid():
-    		form.save()
-    		return redirect('product-status')
+	model = ProductStatus
+	fields =['status']
+	def get_context_data(self, **kwargs):
+		context = super(ProductStatusUpdateView, self).get_context_data(**kwargs)
+		context["statuses"] = self.model.objects.all().order_by('-id')
+		return context
+	def form_valid(self, form):
+		if form.is_valid():
+			form.save()
+			return redirect('product-status')
 
 class SubjectCreateView(LoginRequiredMixin, CreateView):
 	model = Subject
@@ -1051,14 +1051,14 @@ def ministry_add_students(request, pk):
 						b[i]=0
 					if int(g[i])>0 or int(b[i])>0:
 						some_data.append(Student(**{
-	                                        'year' : year,
-	                                        'user' : request.user,
-	                                        'school' : school,
-	                                        'class_name' : Class.objects.get(pk=c[i]),
-	                                        'age' : AgeGroup.objects.get(pk=a[i]),
-	                                        'girls' : g[i],
-	                                        'boys' : b[i],
-	                                        }))
+											'year' : year,
+											'user' : request.user,
+											'school' : school,
+											'class_name' : Class.objects.get(pk=c[i]),
+											'age' : AgeGroup.objects.get(pk=a[i]),
+											'girls' : g[i],
+											'boys' : b[i],
+											}))
 			# Student.objects.bulk_create(some_data)
 			try:
 				Student.objects.bulk_create(some_data)
@@ -2224,18 +2224,93 @@ def home(request):
 	return render(request, 'ministry/home.html', context)
 
 def pie_chart(request):
-    labels = []
-    data = []
+	labels = []
+	data = []
 
-    queryset = School.objects.values('founder__own_type').annotate(total_schools=Count('founder')).filter(level=2)
-    for city in queryset:
-        labels.append(city['founder__own_type'])
-        data.append(city['total_schools'])
+	queryset = School.objects.values('founder__own_type').annotate(total_schools=Count('founder')).filter(level=2)
+	for city in queryset:
+		labels.append(city['founder__own_type'])
+		data.append(city['total_schools'])
 
-    return render(request, 'home.html', {
-        'labels': labels,
-        'data': data,
-    })
+	return render(request, 'home.html', {
+		'labels': labels,
+		'data': data,
+	})
+
+def communication(request):
+	if request.method == 'POST':
+		form = CommunicationCreateForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.instance.user = request.user
+			form.save()
+			messages.success(request, f'New communication has been published.')
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+	else:
+		form = CommunicationCreateForm()
+	context = {
+		'form':form,
+		'title':'Communication',
+		'submenu':'Communication',
+		'communications':Communication.objects.all()
+	}
+	return render(request, 'ministry/communication.html', context)
+
+def update_communication(request, pk):
+	com = Communication.objects.get(pk=pk)
+	if request.method == 'POST':
+		form = CommunicationCreateForm(request.POST, request.FILES, instance=com)
+		if form.is_valid():
+			form.instance.user = request.user
+			form.save()
+			messages.success(request, f'The communication has been updated.')
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+	else:
+		form = CommunicationCreateForm(instance=com)
+	context = {
+		'form':form,
+		'com':com,
+		'title':'Communication',
+		'submenu':'Communication',
+		'communications':Communication.objects.all()
+	}
+	return render(request, 'ministry/communication.html', context)
+
+def download_resource(request):
+	if request.method == 'POST':
+		form = DownloadResourceCreateForm(request.POST, request.FILES)
+		if form.is_valid():
+			form.instance.user = request.user
+			form.save()
+			messages.success(request, f'New resource has been published.')
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+	else:
+		form = DownloadResourceCreateForm()
+	context = {
+		'form':form,
+		'title':'Communication',
+		'submenu':'Resources',
+		'resources':DownloadResource.objects.all()
+	}
+	return render(request, 'ministry/resources.html', context)
+
+def update_download_resource(request, pk):
+	resource = DownloadResource.objects.get(pk=pk)
+	if request.method == 'POST':
+		form = DownloadResourceCreateForm(request.POST, request.FILES, instance=resource)
+		if form.is_valid():
+			form.instance.user = request.user
+			form.save()
+			messages.success(request, f'The resource has been updated.')
+			return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+	else:
+		form = DownloadResourceCreateForm(instance=resource)
+	context = {
+		'form':form,
+		'title':'Communication',
+		'submenu':'Resources',
+		'resources':DownloadResource.objects.all()
+	}
+	return render(request, 'ministry/resources.html', context)
 
 class DistrictUploadView(FormView):
 	template_name = 'ministry/upload_record.html'
@@ -2304,6 +2379,33 @@ class ServiceProviderUploadView(FormView):
 	template_name = 'ministry/upload_record.html'
 	form_class = UploadServiceProvider
 	success_url = '/ministry/upload_service_provider/'
+
+	def form_valid(self, form):
+		form.process_data()
+		return super().form_valid(form)
+
+class UACEUploadView(FormView):
+	template_name = 'ministry/upload_record.html'
+	form_class = UploadUACE
+	success_url = '/ministry/upload_uace/'
+
+	def form_valid(self, form):
+		form.process_data()
+		return super().form_valid(form)
+
+class UCEUploadView(FormView):
+	template_name = 'ministry/upload_record.html'
+	form_class = UploadUCE
+	success_url = '/ministry/upload_uce/'
+
+	def form_valid(self, form):
+		form.process_data()
+		return super().form_valid(form)
+
+class UPEUploadView(FormView):
+	template_name = 'ministry/upload_record.html'
+	form_class = UploadUPE
+	success_url = '/ministry/upload_upe/'
 
 	def form_valid(self, form):
 		form.process_data()

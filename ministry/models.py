@@ -259,7 +259,7 @@ class Facility(models.Model):
 class Teacher(models.Model):
 	surname = models.CharField(max_length=200,)
 	first_name = models.CharField(max_length=200,)
-	school = models.ForeignKey(School, on_delete = models.CASCADE, verbose_name="Current School")
+	school = models.ForeignKey(School, blank=True, null=True, on_delete = models.SET_NULL, verbose_name="Current School")
 	payroll_number = models.CharField(max_length=11, blank=True, null=True,)
 	phone = models.CharField(max_length=13, blank=True, null=True,)
 	nin = models.CharField(max_length=14, blank=True, null=True,)
@@ -349,5 +349,48 @@ class ProductVote(models.Model):
 	vote = models.IntegerField()
 	product = models.ForeignKey(Product, on_delete = models.CASCADE)
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
+
+class TeacherCategory(models.Model):
+	name = models.CharField(max_length=200)
+	def __str__(self):
+		return self.name
+
+class NewTeacher(models.Model):
+	name = models.CharField(max_length=200)
+	reg_no = models.CharField(max_length=200, unique=True)
+	category = models.ForeignKey(TeacherCategory, on_delete = models.SET_NULL, blank=True, null=True,)
+	subject = models.ForeignKey(Subject, on_delete = models.SET_NULL, blank=True, null=True,)
+	def __str__(self):
+		return self.reg_no
+
+class SchoolRankPLE(models.Model):
+	rank = models.IntegerField()
+	div1 = models.IntegerField()
+	div2 = models.IntegerField()
+	div3 = models.IntegerField()
+	div4 = models.IntegerField()
+	year = models.IntegerField()
+	school = models.CharField(max_length=200)
+	def __str__(self):
+		return f'{self.school}'
+
+class SchoolRankUCE(models.Model):
+	rank = models.IntegerField()
+	div1 = models.IntegerField()
+	div2 = models.IntegerField()
+	div3 = models.IntegerField()
+	div4 = models.IntegerField()
+	year = models.IntegerField()
+	school = models.CharField(max_length=200)
+	def __str__(self):
+		return f'{self.school}'
+
+class SchoolRankUACE(models.Model):
+	rank = models.IntegerField()
+	number = models.IntegerField()
+	year = models.IntegerField()
+	school = models.CharField(max_length=200)
+	def __str__(self):
+		return f'{self.school}'
 
 

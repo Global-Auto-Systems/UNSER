@@ -8,6 +8,42 @@
                 <h3 style="text-align: center;"><b>Latest Resouces from Ministry of Education</b></h3>
                 <hr>
             </div>
+            <div class="sparkline13-list shadow-reset">
+                <div class="sparkline13-hd">
+                    <div class="main-sparkline13-hd">
+                        <h1><span class="table-project-n"> Recently Published Resources</span></h1>
+                        <div class="sparkline13-outline-icon">
+                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                            <span><i class="fa fa-wrench"></i></span>
+                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="sparkline13-graph">
+                    <div class="datatable-dashv1-list custom-datatable-overright">
+                        <div id="toolbar">
+                        </div>
+                        <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="false" data-show-pagination-switch="false" data-show-refresh="false" data-key-events="false" data-show-toggle="false" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="false" data-click-to-select="true" data-toolbar="#toolbar">
+                            <thead>
+                                <tr>
+                                    <th data-field="state" data-checkbox="true"></th>
+                                    <th data-field="name" data-editable="false">Resource Title</th>
+                                    <th data-field="reg_no" data-editable="false">File</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for comm in resources %}
+                                <tr>
+                                    <td></td>
+                                    <td>{{comm.topic}}</td>
+                                    <td>{% if comm.upload %}<a href="{{comm.upload.url}}" target="_blank" style="color: green; font-weight: bolder;">Download</a>{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="col-md-3">

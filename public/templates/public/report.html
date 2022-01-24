@@ -1,0 +1,137 @@
+{% extends 'public/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="button-adminpro-area mg-t-40">
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<div class="button-ad-wrap mg-b-40 shadow-reset">
+        <h4>Report a case from a school</h4>	
+			<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<fieldset>
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
+                    </div>
+                    {% endif %}
+					<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="form-group-inner">
+                            <div class="col-lg-12">
+                                <label class="login2 pull-left pull-left-pro">Report to</label>
+                            </div>
+                            <div class="col-lg-12">
+                                <select name="to" class="select2_demo_3 form-control" style="width: 100%;">
+                                    {% for group in groups %}
+                                    <option value="{{group.id}}">{{group}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group-inner">
+                            <div class="">
+                                <div class="col-lg-12">
+                                    <label class="login2 pull-left pull-left-pro">School Name<sup style="color: red;">*</sup></label>
+                                </div>
+                                <div class="col-lg-12">
+                                    <input name="school" type="text" class="form-control" autocomplete="off" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-inner">
+                            <div class="">
+                                <div class="col-lg-12">
+                                    <label class="login2 pull-left pull-left-pro">Address of School<sup style="color: red;">*</sup></label>
+                                </div>
+                                <div class="col-lg-12">
+                                    <input name="address" type="text" class="form-control" placeholder="District/town/street" autocomplete="off" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-inner">
+                            <div class="">
+                                <div class="col-lg-12">
+                                    <label class="login2 pull-left pull-left-pro">Describe your case<sup style="color: red;">*</sup></label>
+                                </div>
+                                <div class="col-lg-12">
+                                    <input name="case" type="text" class="form-control" autocomplete="off" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-inner">
+                            <div class="">
+                                <div class="col-lg-12">
+                                    <label class="login2 pull-left pull-left-pro">Is your case COVID-19 related?</label>
+                                </div>
+                                <div class="col-lg-12">
+                                    <input name="case" type="checkbox" class="form-control" checked/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">                        
+                        <div class="form-group-inner">
+                            <div class="">
+                                <div class="col-lg-12">
+                                    <label class="login2 pull-left pull-left-pro">Your Name</label>
+                                </div>
+                                <div class="col-lg-12">
+                                    <input name="name" type="text" class="form-control" autocomplete="off"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-inner">
+                            <div class="">
+                                <div class="col-lg-12">
+                                    <label class="login2 pull-left pull-left-pro">Your Phone Number</label>
+                                </div>
+                                <div class="col-lg-12">
+                                    <input name="phone" type="text" class="form-control" autocomplete="off" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-inner">
+                            <div class="">
+                                <div class="col-lg-12">
+                                    <label class="login2 pull-left pull-left-pro">Your Email address</label>
+                                </div>
+                                <div class="col-lg-12">
+                                    <input name="email" type="text" class="form-control" autocomplete="off" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-inner">
+                            <div class="">
+                                <div class="col-lg-12">
+                                    <label class="login2 pull-left pull-left-pro">Date of Case</label>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="date-picker-inner">
+                                    <div class="form-group data-custon-pick">
+                                        <div class="input-group date">
+                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                            <input name="date" type="date" class="form-control" autocomplete="off" placeholder="When the case happened">
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-inner">
+                            <div class="">
+                                <div class="col-lg-12">
+                                    <button class="btn btn-success pull-right" style="margin-top: 10px;" type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>					
+				</fieldset>
+			</form>
+		</div> 
+</div>  
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}

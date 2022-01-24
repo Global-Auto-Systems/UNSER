@@ -3,14 +3,21 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-lg-9 mg-t-40">
+        <div class="col-lg-8 mg-t-40">
             <div class="px-3">
                 <h3 style="text-align: center;"><b>Latest Communication from Ministry of Education</b></h3>
                 <hr>
             </div>
+                {% for comm in communications %}
+                <h5><b>{{comm.topic}}</b></h5>
+                <p>{{comm.message}}</p>
+                {% if comm.upload %}
+                <a href="{{comm.upload.url}}" style="color: green; font-weight: bolder;">Download</a>
+                {% endif %}
+                <hr>
+                {% endfor %}
         </div>
-
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="container-fluid row center py-3">
                 <img src="{% static 'img/flag.gif' %}" alt="">
             </div>
