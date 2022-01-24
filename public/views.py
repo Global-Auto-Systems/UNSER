@@ -433,7 +433,7 @@ def ple_results(request):
 	return render(request, 'public/results_uce.html', context)
 
 def marketing(request):
-	return render(request, 'public/marketing.html', {'title': 'Marketing'})
+	return render(request, 'public/market.html', {'title': 'Marketing'})
 
 def communication(request):
 	context = {
