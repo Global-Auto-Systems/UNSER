@@ -1,0 +1,116 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load addition %}
+{% block content %} 
+<div class="button-adminpro-area">
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>Record Teaching Staff who left School
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if teacher_form.errors %}
+    <div class="alert alert-danger">
+        {{teacher_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Reason for Leaving</th>
+                    <th style="text-align: center;">Male</th>
+                    <th style="text-align: center;">Female</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reason in reasons %}
+                    <tr>
+                        <td>
+                            {{reason}}
+                        </td>
+                    <td><input type="number" name="male" class="form-control" min="0"></td>
+                    <td><input type="number" name="female" class="form-control" min="0"></td>
+                    <input type="text" name="reason" value="{{reason.id}}" hidden>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="3"><button class="btn btn-success mg-b-4 pull-right" type="submit">
+    Submit</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    </form>
+</div><!-- /.widget-box -->
+</div>
+<div class="col-md-6">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="row">
+    <div class="col-lg-6">
+     <h4>View Teachers Who Left</h4>
+    </div>
+    <form method="GET" action="{% url 'add-left-teachers' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="col-lg-1">
+    <p class="pull-right">Year</p>
+    </div>
+    <div class="col-lg-3">
+    <input type="number" name="yr" value="{{yr}}" required class="form-control" style="width: 100%; margin-bottom: 1%;">
+    </div>
+    <div class="col-lg-2">
+    <input type="submit" value="Select" class="btn btn-default pull-right">
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    {% if teacher_form.errors %}
+    <div class="alert alert-danger">
+        {{teacher_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Reason for Leaving</th>
+                    <th style="text-align: center;">Male</th>
+                    <th style="text-align: center;">Female</th>
+                    <th style="text-align: center;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reason in reasons %}
+                    <tr>
+                        <td>
+                        {{reason}}
+                        </td>
+                    <td>{% for teacher in teachers %} {% if teacher.reason.id == reason.id %} {{teacher.male}} {% endif %} {% endfor %}</td>
+                    <td>{% for teacher in teachers %} {% if teacher.reason.id == reason.id %} {{teacher.female}} {% endif %} {% endfor %}</td>
+                    <td>{% for teacher in teachers_by_reason %} {% if teacher.reason == reason.id %} {{teacher.total}} {% endif %} {% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th>Total</th>
+                    <th>{{teachers_by_sex.total_male}}</th>
+                    <th>{{teachers_by_sex.total_female}}</th>
+                    <th>{{teachers_by_sex.total_male|add:teachers_by_sex.total_female}}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </form>
+</div><!-- /.widget-box -->
+</div>   
+</div>
+</div>
+</div>
+{% endblock content %}

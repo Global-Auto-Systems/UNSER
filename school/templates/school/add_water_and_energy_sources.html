@@ -1,0 +1,24 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load addition %}
+{% block content %} 
+<div class="button-adminpro-area">
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <h3>Record Main Water and Energy Sources</h3>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <fieldset>
+        {{source_form|crispy}}
+        <button class="btn btn-success mg-b-4 pull-right" type="submit">Submit</button>
+        </fieldset>
+    </form>
+</div><!-- /.widget-box -->
+</div>  
+</div>
+</div>
+</div>
+{% endblock content %}

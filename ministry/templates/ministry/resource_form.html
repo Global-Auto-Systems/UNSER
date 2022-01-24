@@ -1,0 +1,79 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="button-adminpro-area mg-t-40">
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<div class="button-ad-wrap mg-b-40">
+
+        <h4>Resource Registration Form</h4>	
+			<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}	
+				<fieldset>
+					{{ form|crispy }}
+					<button class="btn btn-success mg-b-4 " style="margin-bottom: 5%; margin: 5%;" type="submit">Submit</button>
+				</fieldset>
+			</form>
+		</div> 
+</div>
+<div class="col-md-6">
+<div class="button-ad-wrap mg-b-40">
+    <h4>Recent resources added</h4>	
+	<div class="static-table-list">
+        <table class="table border-table table-stripped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Type</th>
+                    <th>Source</th>
+                    <th>Qty</th>
+                    <th>Amount</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for resource in resources %}
+					<tr>
+						<td>{{ forloop.counter0|add:resources.start_index }}</td>
+						<td><a href="{% url 'resource-details' resource.id %}">{{ resource.resource_type }}</a></td>
+						<td>{{ resource.source }}</td>
+                        <td>{{ resource.quantity }}</td>
+                        <td>{{ resource.amount }}</td>
+						<td>
+						<a href="{% url 'update-resource' resource.id %}" class="tooltip-success" data-rel="tooltip" title="Edit">
+							<span class="green">
+								<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+							</span>
+						</a>
+						</td>
+					</tr>
+
+					{% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="pagination">
+    <span class="step-links">
+        {% if resources.has_previous %}
+            <a class="btn btn-custon-three btn-default btn-sm" href="?page=1">&laquo; first</a>
+            <a class="btn btn-custon-three btn-default btn-sm" href="?page={{ resources.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="current">
+            Page {{ resources.number }} of {{ resources.paginator.num_pages }}.
+        </span>
+        {% if resources.has_next %}
+            <a class="btn btn-custon-three btn-default btn-sm" href="?page={{ resources.next_page_number }}">next</a>
+            <a class="btn btn-custon-three btn-default btn-sm" href="?page={{ resources.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+	</div>
+</div><!-- /.widget-box -->
+		</div>    
+
+	</div>
+</div>
+</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,550 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="button-adminpro-area">
+<div class="container">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="user-profile-wrap shadow-reset mg-b-40">
+            <a href="{% url 'ministry-add-students' school.id %}" {% if sub_title == "Enrolment" %} class="btn" style="background: red; color: white;" {% endif %}> Enrolment </a> | <a href="" {% if sub_title == "Repeaters" %} class="btn" style="background: red; color: white;" {% endif %}> Repeaters </a> | <a href="" {% if sub_title == "Nationality" %} class="btn" style="background: red; color: white;" {% endif %}> Nationality </a> | <a href="" {% if sub_title == "Proposed Intake" %} class="btn" style="background: red; color: white;" {% endif %}> Proposed Intake </a> | <a href="" {% if sub_title == "Physical Streams" %} class="btn" style="background: red; color: white;" {% endif %}> Streams </a> | <a href="" {% if sub_title == "Orphans" %} class="btn" style="background: red; color: white;" {% endif %}> Orphans </a> | <a href="" {% if sub_title == "Special Needs" %} class="btn" style="background: red; color: white;" {% endif %}> Special Needs </a> | <a href="" {% if sub_title == "New Entrants" %} class="btn" style="background: red; color: white;" {% endif %}> New Entrants </a>  | <a href="" {% if sub_title == "Seating and Writing Space" %} class="btn" style="background: red; color: white;" {% endif %}> Seating and Writing Space </a>  | <a href="" {% if sub_title == "Transfered Students" %} class="btn" style="background: red; color: white;" {% endif %}> Transfers In </a> | <a href="" {% if sub_title == "Examinations" %} class="btn" style="background: red; color: white;" {% endif %}> Examinations </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+    {% if sub_title == "Enrolment" %}
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %} Register Enrolment by Class, Sex and Age (<i><small>Age at the beginning of the first term</small></i>)
+        <input type="number" name="year" placeholder="Enrolment Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2">Age</th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for age in ages %}
+                    <tr>
+                        <td>
+                            <strong>
+                                {{age}}
+                            </strong>
+                        </td>
+                    {% for class in classes %}
+                    <td><input type="number" name="boys" class="form-control" min="0"></td>
+                    <td><input type="number" name="girls" class="form-control" min="0"></td>
+                    <input type="text" name="age" value="{{age.id}}" hidden>
+                    <input type="text" name="class_name" value="{{class.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div>  
+    {% elif sub_title == "Repeaters" %}
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %}Repeaters by Class and Sex (<i><small>pupils who repeated class during the year selected</small></i>)
+        <input type="number" name="year" placeholder="Year Repeated" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2"></th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>Repeaters</td>
+                    {% for class in classes %}
+                    <td><input type="number" name="boys" class="form-control" min="0"></td>
+                    <td><input type="number" name="girls" class="form-control" min="0"></td>
+                    <input type="text" name="class_name" value="{{class.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div>  
+    {% elif sub_title == "Nationality" %}
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %}Register Enrolment by Nationality of Pupils by  Class, Sex and Gender
+        <input type="number" name="year" placeholder="Enrolment Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2">Nationality</th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for country in countries %}
+                    <tr>
+                        <td>
+                            <strong>
+                                {{country}}
+                            </strong>
+                        </td>
+                    {% for class in classes %}
+                    <td><input type="number" name="boys" class="form-control" min="0"></td>
+                    <td><input type="number" name="girls" class="form-control" min="0"></td>
+                    <input type="text" name="country" value="{{country.id}}" hidden>
+                    <input type="text" name="class_name" value="{{class.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div>  
+    {% elif sub_title == "Physical Streams" %}
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %}Physical Streams by Class (<i><small>Number of seperate groups existing for each Class</small></i>)
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th></th>
+                    {% for class in classes %}
+                    <th style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>Number of Streams</td>
+                    {% for class in classes %}
+                    <td><input type="number" name="streams" class="form-control" min="0"></td>
+                    <input type="text" name="class_name" value="{{class.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div>  
+    {% elif sub_title == "Orphans" %}
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %}Register Orphans by Class and Sex
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2"></th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for status in statuses %}
+                    <tr>
+                        <td>
+                            <strong>
+                                {{status}}
+                            </strong>
+                        </td>
+                    {% for class in classes %}
+                    <td><input type="number" name="boys" class="form-control" min="0"></td>
+                    <td><input type="number" name="girls" class="form-control" min="0"></td>
+                    <input type="text" name="status" value="{{status.id}}" hidden>
+                    <input type="text" name="class_name" value="{{class.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div>  
+    {% elif sub_title == "Special Needs" %}
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %}Register Pupils with Special Learning Needs by Class and Sex
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2"></th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for status in statuses %}
+                    <tr>
+                        <td>
+                            <strong>
+                                {{status}}
+                            </strong>
+                        </td>
+                    {% for class in classes %}
+                    <td><input type="number" name="boys" class="form-control" min="0"></td>
+                    <td><input type="number" name="girls" class="form-control" min="0"></td>
+                    <input type="text" name="status" value="{{status.id}}" hidden>
+                    <input type="text" name="class_name" value="{{class.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div> 
+    {% elif sub_title == "Proposed Intake" %}
+    <div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %}Proposed intake by Class, Sex and Type of Combination for the selected year 
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2"></th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>Proposed Intake</td>
+                    {% for class in classes %}
+                    <td><input type="number" name="boys" class="form-control" min="0"></td>
+                    <td><input type="number" name="girls" class="form-control" min="0"></td>
+                    <input type="text" name="class_name" value="{{class.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div>  
+
+    {% elif sub_title == "New Entrants" %}
+
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %}New Entrants to {{classes}} by Age and Sex (<i><small>DO NOT Include Repeaters</small></i>) 
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2"></th>
+                    {% for age in ages %}
+                    <th colspan="2" style="text-align: center;">{{age}}{% if forloop.last %} or more {% endif %}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for age in ages %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>New Entrants to {{classes}}</td>
+                    {% for age in ages %}
+                    <td><input type="number" name="boys" class="form-control" min="0"></td>
+                    <td><input type="number" name="girls" class="form-control" min="0"></td>
+                    <input type="text" name="age" value="{{age.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div> 
+
+    {% elif sub_title == "Seating and Writing Space" %}
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %}Pupils with Adquate Seating and Writing Space (<i><small>sitting on a chair or with a desk</small></i>)
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th></th>
+                    {% for class in classes %}
+                    <th style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>Pupils</td>
+                    {% for class in classes %}
+                    <td><input type="number" name="pupils" class="form-control" min="0"></td>
+                    <input type="text" name="class_name" value="{{class.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div>
+    {% elif sub_title == "Transfered Students" %}
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %}Transfered Students into Your School by Class and Gender (<i><small>for the year selected</small></i>)
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2"></th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>Transfers In</td>
+                    {% for class in classes %}
+                    <td><input type="number" name="boys" class="form-control" min="0"></td>
+                    <td><input type="number" name="girls" class="form-control" min="0"></td>
+                    <input type="text" name="class_name" value="{{class.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div>
+    {% elif sub_title == "Examinations" %}
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>{% if school %}<strong>{{school}} - </strong>{% endif %}Number of Students Sitting at the end of each term by Class, Gender and Term
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if student_form.errors %}
+    <div class="alert alert-danger">
+        {{student_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2">Terms</th>
+                    {% for class in classes %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for class in classes %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for term in terms %}
+                    <tr>
+                        <td>
+                            <strong>
+                                {{term}}
+                            </strong>
+                        </td>
+                    {% for class in classes %}
+                    <td><input type="number" name="boys" class="form-control" min="0"></td>
+                    <td><input type="number" name="girls" class="form-control" min="0"></td>
+                    <input type="text" name="term" value="{{term.id}}" hidden>
+                    <input type="text" name="class_name" value="{{class.id}}" hidden>
+                    {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button>
+    </form>
+</div><!-- /.widget-box -->
+</div>    
+    {% endif %}
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}

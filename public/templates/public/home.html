@@ -1,0 +1,139 @@
+{% extends 'public/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-9 shadow">
+            
+            <div style="display: flex;">
+           	<!-- <img src="{% static 'img/ch.jpg' %}" alt="" style="width: 50%; padding-top: 10px;"> -->
+            <!-- <img src="{% static 'img/ch1.jpg' %}" alt="" 
+                    style="width: 50%; padding-top: 10px;"> -->
+
+            <iframe class="profile-details-name-nn" src="{% url 'slider' %}" width="100%" scrolling="no" height="400px" frameborder="0" style="padding-top: 10px;"></iframe>
+            <iframe src="{% url 'slider-main' %}" width="100%" scrolling="no" height="400px" frameborder="0" style="padding-top: 10px;"></iframe>
+            </div>
+            <div style="padding-top: 5px;">
+                <div class="row px-3">
+                    <div class="px-3">
+                        <hr>
+                        <h3 style="text-align: center;"><b>About Us</b></h3>
+                    </div>
+
+                    <div class="col-lg-12 mg-b-30">
+
+                        <div class="card h-100 mb-4">
+                            <div class="card-header py-3">
+                                <h4 class="m-0 font-weight-bold text-primary">Motivation</h4>
+                            </div>
+                            <div class="card-body">
+                                <p><b>Actual monitoring and tracking of schools in the country is inefficient and
+                                        often
+                                        rendered ineffective.</b></p>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="cards col-md-6">
+
+                        <div class="card h-100 shadow mb-4">
+                            <div class="card-header py-3">
+                                <h4 class="m-0 font-weight-bold text-primary">Causes</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="square-bullets">
+                                    <li class="pb-3">Systems used for archiving vital information by individual
+                                        institutions are
+                                        isolated with quite diverse ownership.</li>
+                                    <li class="pb-3">Monitoring is Implementation through physical routine checks
+                                        and field
+                                        reports can be influenced by forgery and expensive to maintain.</li>
+                                    <li class="pb-3">Difficulty in acquisition of basic authentic information on
+                                        schools like
+                                        their statuses regarding registration, structure, performance, career
+                                        guidance, basic health and related prevalence, heavily relying on media for
+                                        information.</li>
+                                    <li class="pb-3">Unreliable communication and information channels</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                        <div class="card h-100 shadow mb-4">
+                            <div class="card-header py-3">
+                                <h4 class="m-0 font-weight-bold text-primary">Effects</h4>
+                            </div>
+                            <div class="card-body">
+                                <ul class="square-bullets">
+                                    <li class="pb-3">Such existence not only affects related system transparencies
+                                        including lack of control, interoperability and openness, MoES resource
+                                        allocation and planning, but also public trust</li>
+                                    <li class="pb-3">This increases collaborations inefficiencies among schools for
+                                        surplus resources</li>
+                                    <li class="pb-3">Quality information is trustable and dependable, thus the
+                                        unreliability escalates poor education service delivery, school dropouts and
+                                        attracts fraud in service registration</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="py-3 px-3">
+                <hr>
+                <h3 style="text-align: center;"><b>Our Model</b></h3>
+                
+                <img src="{% static 'img/diag.png' %}" width="100%" alt="">
+            </div>
+
+            </div>
+
+        <div class="col-md-3">
+            <div class="container-fluid row center py-3">
+                <img src="{% static 'img/flag.gif' %}" alt="">
+            </div>
+            <div class="py-3">
+                <h4><b>What is UNSER ?</b></h4>
+                <hr>
+                <p>
+                    <i>UNSER</i> makes accurate and authentic information about schools available to all citizens
+                    and stakeholders in the education system in Uganda in an efficient, timely and cost effective
+                    manner.
+                </p>
+                <hr>
+            </div>
+            <div class="py-3">
+                <h4><b>Ministry of Education & Sports</b></h4>
+                <hr>
+                <div style="height:700px; overflow: auto;">
+                    <a class="twitter-timeline" href="https://twitter.com/Educ_SportsUg?ref_src=twsrc%5Etfw">Tweets
+                        by
+                        Minstry Of Education & Sports Ug</a>
+                    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                </div>
+                <hr>
+            </div>
+            <div class="py-3">
+                <h4><b>Contact Us</b></h4>
+                <hr>
+                <p>
+                    P.O.Box #, <br>
+                    Mbarara, Uganda. <br>
+                    <hr>
+                    Phone: +266 <br>
+                    <hr>
+                    Email:
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load addition %}
+{% block content %} 
+<div class="button-adminpro-area">
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>Building (Rooms) Needed By Type
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if room_form.errors %}
+    <div class="alert alert-danger">
+        {{room_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="text-align: center;"></th>
+                    <th style="text-align: center;">Rooms Needed</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for type in types %}
+                    <tr>
+                        <td>
+                            {{type}}
+                        </td>
+                    <td><input type="number" name="rooms" class="form-control" min="0"></td>
+                    <input type="text" name="room_type" value="{{type.id}}" hidden>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="9"><button class="btn btn-success mg-b-4 pull-right" type="submit"> Submit </button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+    </form>
+</div><!-- /.widget-box -->
+</div>  
+</div>
+</div>
+</div>
+{% endblock content %}

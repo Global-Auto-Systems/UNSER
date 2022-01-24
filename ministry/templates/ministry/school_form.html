@@ -1,0 +1,438 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="button-adminpro-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="button-ad-wrap shadow-reset mg-b-40">
+                    <h4>School Registration Form</h4>	
+            		<form method="POST" enctype="multipart/form-data">
+        			{% csrf_token %}
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                    {{form.errors}}	
+                    </div>
+                    {% endif %}
+        			<fieldset>
+        				<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">School Name*</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="name" value="{{school.name}}" type="text" class="form-control" autocomplete="off" placeholder="School Name" required/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">School Motto</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="motto" value="{{school.motto}}" type="text" class="form-control" autocomplete="off" placeholder="School Motto"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Phone Number</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="phone" value="{{school.phone}}" type="text" class="form-control" autocomplete="off" placeholder="Phone Number"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Website Link</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="website" value="{{school.website}}" type="text" class="form-control" autocomplete="off" placeholder="Website"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Email Address</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="email" value="{{school.email}}" type="text" class="form-control" autocomplete="off" placeholder="Email"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">P.O.Box</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="box_no" value="{{school.box_no}}" type="text" class="form-control" autocomplete="off" placeholder="P.O.Box, Town"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">District, County, Sub-county, Parish</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="parish" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for parish in parishes %}
+                        {% if school %}
+                        {% if school.parish.id == parish.id %}
+                        <option value="{{parish.id}}" selected="selected">{{parish}}</option>
+                        {% else %}
+                        <option value="{{parish.id}}">{{parish}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{parish.id}}">{{parish}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Physical Address</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="address" value="{{school.address}}" type="text" class="form-control" autocomplete="off" placeholder="Address"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Fax Number(if any)</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="fax" value="{{school.fax}}" type="text" class="form-control" autocomplete="off" placeholder="Fax"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Min. Pub. Service Code</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="service_code" value="{{school.service_code}}" type="text" class="form-control" autocomplete="off" placeholder="Service Code"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Registration Status</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="regstatus" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for regstatus in regstatuses %}
+                        {% if school %}
+                        {% if school.regstatus.id == regstatus.id %}
+                        <option value="{{regstatus.id}}" selected="selected">{{regstatus.rs_type}}</option>
+                        {% else %}
+                        <option value="{{regstatus.id}}">{{regstatus.rs_type}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{regstatus.id}}">{{regstatus.rs_type}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group-inner">
+                <div class="row">
+                <div class="col-lg-6">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Registration License No.</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="reg_no" value="{{school.reg_no}}" type="text" class="form-control" autocomplete="off"/>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">UNEB Center No.</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="cen_no" value="{{school.cen_no}}" type="text" class="form-control" autocomplete="off"/>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Logo</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="logo" value="{{school.logo.url}}" type="File" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Status of operation</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="operation_status" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for schtype in schtypes %}
+                        {% if school %}
+                        {% if school.schtype.id == schtype.id %}
+                        <option value="{{schtype.id}}" selected="selected">{{schtype.sch_type}}</option>
+                        {% else %}
+                        <option value="{{schtype.id}}">{{schtype.sch_type}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{schtype.id}}">{{schtype.sch_type}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Founding Body</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="founder" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for founder in founders %}
+                        {% if school %}
+                        {% if school.founder.id == founder.id %}
+                        <option value="{{founder.id}}" selected="selected">{{founder}}</option>
+                        {% else %}
+                        <option value="{{founder.id}}">{{founder}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{founder.id}}">{{founder}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Founding Year</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="yr_est" value="{{school.yr_est}}" type="number" class="form-control" autocomplete="off"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Funding Source</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="funder" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for funder in funders %}
+                        {% if school %}
+                        {% if school.funder.id == funder.id %}
+                        <option value="{{funder.id}}" selected="selected">{{funder}}</option>
+                        {% else %}
+                        <option value="{{funder.id}}">{{funder}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{funder.id}}">{{funder}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">National/International</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="access" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for access in accesses %}
+                        {% if school %}
+                        {% if school.access.id == access.id %}
+                        <option value="{{access.id}}" selected="selected">{{access}}</option>
+                        {% else %}
+                        <option value="{{access.id}}">{{access}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{access.id}}">{{access}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Rural/Urban</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="rural_urban" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for rural_urban in rural_urbans %}
+                        {% if school %}
+                        {% if school.rural_urban.id == rural_urban.id %}
+                        <option value="{{rural_urban.id}}" selected="selected">{{rural_urban}}</option>
+                        {% else %}
+                        <option value="{{rural_urban.id}}">{{rural_urban}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{rural_urban.id}}">{{rural_urban}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Boys/Girls</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="category" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for category in categories %}
+                        {% if school %}
+                        {% if school.category.id == category.id %}
+                        <option value="{{category.id}}" selected="selected">{{category}}</option>
+                        {% else %}
+                        <option value="{{category.id}}">{{category}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{category.id}}">{{category}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Day/Boarding</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="section" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for section in sections %}
+                        {% if school %}
+                        {% if school.section.id == section.id %}
+                        <option value="{{section.id}}" selected="selected">{{section}}</option>
+                        {% else %}
+                        <option value="{{section.id}}">{{section}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{section.id}}">{{section}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">School Level</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="level" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for level in levels %}
+                        {% if school %}
+                        {% if school.level.id == level.id %}
+                        <option value="{{level.id}}" selected="selected">{{level}}</option>
+                        {% else %}
+                        <option value="{{level.id}}">{{level}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{level.id}}">{{level}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Highest Class</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="highest_class" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for class in classes %}
+                        {% if school %}
+                        {% if school.class.id == class.id %}
+                        <option value="{{class.id}}" selected="selected">{{class}}</option>
+                        {% else %}
+                        <option value="{{class.id}}">{{class}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{class.id}}">{{class}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Distance to Nearest School(Same level)</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="distance_to_nearest_school" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for distance in dns %}
+                        {% if school %}
+                        {% if school.distance.id == distance.id %}
+                        <option value="{{distance.id}}" selected="selected">{{distance}}</option>
+                        {% else %}
+                        <option value="{{distance.id}}">{{distance}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{distance.id}}">{{distance}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Distance to DEO/DES/DIS Main Office</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="distance_to_deo_office" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for distance in ddo %}
+                        {% if school %}
+                        {% if school.distance.id == distance.id %}
+                        <option value="{{distance.id}}" selected="selected">{{distance}}</option>
+                        {% else %}
+                        <option value="{{distance.id}}">{{distance}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{distance.id}}">{{distance}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-right: 3%;" type="submit">
+            Submit</button>
+            </div>
+        				
+        			</fieldset>
+            		</form>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

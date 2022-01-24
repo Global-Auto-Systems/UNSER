@@ -1,0 +1,252 @@
+{% extends "ministry/base.html" %}
+{% block content %}
+{% if schools %}
+<!-- income order visit user Start -->
+<div class="income-order-visit-user-area mg-t-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>Students</h2>
+                            <div class="main-income-phara">
+                                <p>Yearly</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span></span><span class="counter">60888200</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline1"></span>
+                            </div>
+                        </div>
+                        <div class="income-range">
+                            <p>Total Students This Year</p>
+                            <span class="income-percentange">98% <i class="fa fa-bolt"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>Schools</h2>
+                            <div class="main-income-phara order-cl">
+                                <p>Current</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">72320</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline6"></span>
+                            </div>
+                        </div>
+                        <div class="income-range order-cl">
+                            <p>All Schools</p>
+                            <span class="income-percentange">66% <i class="fa fa-level-up"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>Teachers</h2>
+                            <div class="main-income-phara visitor-cl">
+                                <p>This year</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">888200</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline2"></span>
+                            </div>
+                        </div>
+                        <div class="income-range visitor-cl">
+                            <p>New Teachers</p>
+                            <span class="income-percentange">55% <i class="fa fa-level-up"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>Resources</h2>
+                            <div class="main-income-phara low-value-cl">
+                                <p>Available</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">88200</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline5"></span>
+                            </div>
+                        </div>
+                        <div class="income-range low-value-cl">
+                            <p>This Year</p>
+                            <span class="income-percentange">33% <i class="fa fa-level-down"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="income-order-visit-user-area mg-t-40">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>Students</h2>
+                            <div class="main-income-phara">
+                                <p>Yearly</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span></span><span class="counter">60888200</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline1"></span>
+                            </div>
+                        </div>
+                        <div class="income-range">
+                            <p>Total Students This Year</p>
+                            <span class="income-percentange">98% <i class="fa fa-bolt"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>Schools</h2>
+                            <div class="main-income-phara order-cl">
+                                <p>Current</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">72320</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline6"></span>
+                            </div>
+                        </div>
+                        <div class="income-range order-cl">
+                            <p>All Schools</p>
+                            <span class="income-percentange">66% <i class="fa fa-level-up"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>Teachers</h2>
+                            <div class="main-income-phara visitor-cl">
+                                <p>This year</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">888200</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline2"></span>
+                            </div>
+                        </div>
+                        <div class="income-range visitor-cl">
+                            <p>New Teachers</p>
+                            <span class="income-percentange">55% <i class="fa fa-level-up"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                    <div class="income-title">
+                        <div class="main-income-head">
+                            <h2>Resources</h2>
+                            <div class="main-income-phara low-value-cl">
+                                <p>Available</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="income-dashone-pro">
+                        <div class="income-rate-total">
+                            <div class="price-adminpro-rate">
+                                <h3><span class="counter">88200</span></h3>
+                            </div>
+                            <div class="price-graph">
+                                <span id="sparkline5"></span>
+                            </div>
+                        </div>
+                        <div class="income-range low-value-cl">
+                            <p>This Year</p>
+                            <span class="income-percentange">33% <i class="fa fa-level-down"></i></span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- welcome Project, sale area start-->
+{% else %}
+<div class="button-adminpro-area mg-t-40 mg-b-40">
+<div class="container mg-t-40 mg-b-40">
+<div class="row mg-t-40 mg-b-40">
+<div class="col-md-4">
+</div>
+<div class="col-md-4">
+<div class="button-ad-wrap shadow-reset">
+    <h4>You need to setup your school first!</h4>    
+        <form method="POST" enctype="multipart/form-data">
+            <a href="{% url 'set-school-profile' %}" class="btn btn-info mg-b-30 mg-t-30">Set my school</a>
+        </form>
+    </div> 
+</div>
+</div>
+</div>
+</div> 
+{% endif %}
+{% endblock content %}

@@ -1,0 +1,363 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="button-adminpro-area">
+<div class="container">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="user-profile-wrap shadow-reset mg-b-40">
+            <a href="{% url 'building-rooms' level.id %}" {% if sub_title == "Rooms" %} class="btn" style="background: red; color: white;" {% endif %}> Rooms </a> | <a href="{% url 'rooms-under-construction' level.id %}" {% if sub_title == "Rooms Under Construction" %} class="btn" style="background: red; color: white;" {% endif %}> Rooms Under Construction </a> | <a href="{% url 'rooms-needed' level.id %}" {% if sub_title == "Rooms Needed" %} class="btn" style="background: red; color: white;" {% endif %}> Rooms Needed </a> | <a href="{% url 'left-teachers' level.id %}" {% if sub_title == "Water & Energy Sources" %} class="btn" style="background: red; color: white;" {% endif %}> Water & Energy Sources </a> | <a href="{% url 'left-teachers' level.id %}" {% if sub_title == "Latrine" %} class="btn" style="background: red; color: white;" {% endif %}> Latrine </a>
+        </div>
+    </div>
+</div>
+<div class="row">
+<div class="col-lg-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="row">
+    <div class="col-lg-8">
+    
+    {% if sub_title == "Rooms" %}
+    <h4><strong>{{level}} Schools</strong> - Building Rooms by Room Type and State</h4>
+    </div>
+    <form method="GET" action="{% url 'building-rooms' level.id %}" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="col-lg-1">
+    <p class="pull-right">Year</p>
+    </div>
+    <div class="col-lg-2">
+    <input type="number" name="year" value="{{year}}" required class="form-control" style="width: 100%; margin-bottom: 1%;">
+    </div>
+    <div class="col-lg-1">
+    <input type="submit" value="Select" class="btn btn-default pull-right">
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="text-align: center;" rowspan="4"></th>
+                    {% for state in operation_statuses %}
+                    <th style="text-align: center;" colspan="8">{{state}}</th>
+                    {% endfor %}
+                    <th style="text-align: center;" rowspan="3" colspan="2">Total</th>
+                </tr>
+                <tr>
+                    {% for opt in operation_statuses %}
+                    {% for state in states %}
+                    <th style="text-align: center;" colspan="4">{{state}}</th>
+                    {% endfor %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for opt in operation_statuses %}
+                    {% for state in states %}
+                    {% for status in statuses %}
+                    <th style="text-align: center;" colspan="2">{{status}}</th>
+                    {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
+                </tr>
+                <tr>
+                    {% for opt in operation_statuses %}
+                    {% for state in states %}
+                    {% for status in statuses %}
+                    <th style="text-align: center;"><i><small>Perm</small></i></th>
+                    <th style="text-align: center;"><i><small>Temp</small></i></th>
+                    {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
+                    <th style="text-align: center;"><i><small>Perm</small></i></th>
+                    <th style="text-align: center;"><i><small>Temp</small></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for type in types %}
+                    <tr>
+                        <td>
+                            {{type}}
+                        </td>
+                    {% for opt in operation_statuses %}
+                    {% for state in states %}
+                    {% for status in statuses %}
+                    <td>{% for room in rooms %}{% if room.room_state == state.id and room.room_status == status.id and room.room_type == type.id and room.school__operation_status == opt.id %} {{room.total_permanent}} {% endif %}{% endfor %}</td>
+                    <td>{% for room in rooms %}{% if room.room_state == state.id and room.room_status == status.id and room.room_type == type.id and room.school__operation_status == opt.id %} {{room.total_temporary}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
+                    <td>{% for room in rooms_by_type %}{% if room.room_type == type.id %} {{room.total_permanent}} {% endif %}{% endfor %}</td>
+                    <td>{% for room in rooms_by_type %}{% if room.room_type == type.id %} {{room.total_temporary}} {% endif %}{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td><strong>Total</strong></td>
+                    {% for opt in operation_statuses %}
+                    {% for state in states %}
+                    {% for status in statuses %}
+                    <td>{% for room in rooms_by_status %}{% if room.room_state == state.id and room.room_status == status.id and room.school__operation_status == opt.id %} {{room.total_permanent}} {% endif %}{% endfor %}</td>
+                    <td>{% for room in rooms_by_status %}{% if room.room_state == state.id and room.room_status == status.id and room.school__operation_status == opt.id %} {{room.total_temporary}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    {% endfor %}
+                    {% endfor %}
+                    <td><strong>{{rooms_total.total_permanent}}</strong></td>
+                    <td><strong>{{rooms_total.total_temporary}}</strong></td>
+                    </tr>
+                </tr>
+            </tbody>
+        </table>
+    {% elif sub_title == "Rooms Under Construction" %}
+    <h4><strong>{{level}} Schools</strong> - Rooms Under Construction by Completion</h4>
+    </div>
+    <form method="GET" action="{% url 'rooms-under-construction' level.id %}" enctype="multipart/form-data">
+           {% csrf_token %}
+    <div class="col-lg-1">
+    <p class="pull-right">Year</p>
+    </div>
+    <div class="col-lg-2">
+    <input type="number" name="year" value="{{year}}" required class="form-control" style="width: 100%; margin-bottom: 1%;">
+    </div>
+    <div class="col-lg-1">
+    <input type="submit" value="Select" class="btn btn-default pull-right">
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;"></th>
+                    {% for schtype in operation_statuses %}
+                    <th colspan="{{states|length}}" style="text-align: center;">{{schtype}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for schtype in operation_statuses %}
+                    {% for state in states %}
+                    <th style="text-align: center;"><small>{{state}}</small></th>
+                    {% endfor %}
+                    {% endfor %}
+                    <th style="text-align: center;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for type in types %}
+                    <tr>
+                        <td style="text-align: center;">
+                                {{type}}        
+                        </td>
+                    {% for schtype in operation_statuses %}
+                    {% for state in states %}
+                    <td style="text-align: center;">{% for room in rooms %}{% if room.room_completion == state.id and room.room_type == type.id and room.school__operation_status == schtype.id %} {{room.total_rooms}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    {% endfor %}
+                    <td style="text-align: center;">{% for room in rooms_by_type %}{% if room.room_type == type.id %} {{room.total_rooms}} {% endif %}{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td style="text-align: center;"><strong>Total</strong></td>
+                    {% for schtype in operation_statuses %}
+                    {% for state in states %}
+                    <td style="text-align: center;">{% for room in rooms_by_completion %}{% if room.room_completion == state.id and room.school__operation_status == schtype.id %} {{room.total_rooms}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{rooms_total.total_rooms}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    {% elif sub_title == "Rooms Needed" %}
+    <h4><strong>{{level}} Schools</strong> - Rooms Needed By Room Type</h4>
+    </div>
+    <form method="GET" action="{% url 'rooms-needed' level.id %}" enctype="multipart/form-data">
+           {% csrf_token %}
+    <div class="col-lg-1">
+    <p class="pull-right">Year</p>
+    </div>
+    <div class="col-lg-2">
+    <input type="number" name="year" value="{{year}}" required class="form-control" style="width: 100%; margin-bottom: 1%;">
+    </div>
+    <div class="col-lg-1">
+    <input type="submit" value="Select" class="btn btn-default pull-right">
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="text-align: center;"></th>
+                    {% for schtype in operation_statuses %}
+                    <th style="text-align: center;">{{schtype}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for type in types %}
+                    <tr>
+                        <td style="text-align: center;">
+                                {{type}}        
+                        </td>
+                    {% for schtype in operation_statuses %}
+                    <td style="text-align: center;">{% for room in rooms %}{% if room.room_type == type.id and room.school__operation_status == schtype.id %} {{room.total_rooms}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;">{% for room in rooms_by_type %}{% if room.room_type == type.id %} {{room.total_rooms}} {% endif %}{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td style="text-align: center;"><strong>Total</strong></td>
+                    {% for schtype in operation_statuses %}
+                    <td style="text-align: center;">{% for room in rooms_by_status %}{% if room.school__operation_status == schtype.id %} {{room.total_rooms}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{rooms_total.total_rooms}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    {% elif sub_title == "Teachers Leaving" %}
+    <h4><strong>{{level}} Schools</strong> - Teachers Leaving School by Reason</h4>
+    </div>
+    <form method="GET" action="{% url 'left-teachers' level.id %}" enctype="multipart/form-data">
+           {% csrf_token %}
+    <div class="col-lg-1">
+    <p class="pull-right">Year</p>
+    </div>
+    <div class="col-lg-2">
+    <input type="number" name="year" value="{{year}}" required class="form-control" style="width: 100%; margin-bottom: 1%;">
+    </div>
+    <div class="col-lg-1">
+    <input type="submit" value="Select" class="btn btn-default pull-right">
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;">Reason</th>
+                    {% for class in statuses %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for class in statuses %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reason in reasons %}
+                    <tr>
+                        <td style="text-align: center;">
+                            <strong>
+                                {{reason}}
+                            </strong>
+                        </td>
+                    {% for status in statuses %}
+                    <td style="text-align: center;">{% for teacher in teachers %}{% if teacher.school__operation_status == status.id and teacher.reason == reason.id %} {{teacher.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for teacher in teachers %}{% if teacher.school__operation_status == status.id and teacher.reason == reason.id %}{{teacher.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;">{% for teacher in teachers_by_reason %}{% if teacher.reason == reason.id %} {{teacher.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for teacher in teachers_by_reason %}{% if teacher.reason == reason.id %}{{teacher.total_girls}}{% endif %}{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td style="text-align: center;"><strong>Total</strong></td>
+                    {% for class in statuses %}
+                    <td style="text-align: center;">{% for teacher in teachers_by_status %}{% if teacher.school__operation_status == class.id %} {{teacher.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for teacher in teachers_by_status %}{% if teacher.school__operation_status == class.id %}{{teacher.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{total_teachers.total_boys}}</strong></td>
+                    <td style="text-align: center;"><strong>{{total_teachers.total_girls}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    {% elif sub_title == "Non-Teaching Staff" %}
+    <h4><strong>{{level}} Schools</strong> - Non-Teaching Staff</h4>
+    </div>
+    <form method="GET" action="{% url 'non-teaching-staff' level.id %}" enctype="multipart/form-data">
+           {% csrf_token %}
+    <div class="col-lg-1">
+    <p class="pull-right">Year</p>
+    </div>
+    <div class="col-lg-2">
+    <input type="number" name="year" value="{{year}}" required class="form-control" style="width: 100%; margin-bottom: 1%;">
+    </div>
+    <div class="col-lg-1">
+    <input type="submit" value="Select" class="btn btn-default pull-right">
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="text-align: center;">Staff Type</th>
+                    {% for class in statuses %}
+                    <th colspan="2" style="text-align: center;">{{class}}</th>
+                    {% endfor %}
+                    <th colspan="2" style="text-align: center;">Total</th>
+                </tr>
+                <tr>
+                    {% for class in statuses %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                    {% endfor %}
+                    <th style="text-align: center;">M</th>
+                    <th style="text-align: center;">F</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reason in types %}
+                    <tr>
+                        <td style="text-align: center;">
+                            <strong>
+                                {{reason}}
+                            </strong>
+                        </td>
+                    {% for status in statuses %}
+                    <td style="text-align: center;">{% for teacher in teachers %}{% if teacher.school__operation_status == status.id and teacher.staff_type == reason.id %} {{teacher.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for teacher in teachers %}{% if teacher.school__operation_status == status.id and teacher.staff_type == reason.id %}{{teacher.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;">{% for teacher in teachers_by_type %}{% if teacher.staff_type == reason.id %} {{teacher.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for teacher in teachers_by_type %}{% if teacher.staff_type == reason.id %}{{teacher.total_girls}}{% endif %}{% endfor %}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td style="text-align: center;"><strong>Total</strong></td>
+                    {% for class in statuses %}
+                    <td style="text-align: center;">{% for teacher in teachers_by_status %}{% if teacher.school__operation_status == class.id %} {{teacher.total_boys}} {% endif %}{% endfor %}</td>
+                    <td style="text-align: center;">{% for teacher in teachers_by_status %}{% if teacher.school__operation_status == class.id %}{{teacher.total_girls}}{% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td style="text-align: center;"><strong>{{total_teachers.total_boys}}</strong></td>
+                    <td style="text-align: center;"><strong>{{total_teachers.total_girls}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    {% endif %} 
+</div>
+</div><!-- /.widget-box -->
+</div>     
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}

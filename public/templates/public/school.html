@@ -1,0 +1,76 @@
+{% extends 'public/base.html' %}
+{% load static %}
+{% block content %} 
+<div class="button-adminpro-area mg-b-40 mg-t-40">
+<div class="container">
+<div class="user-profile-wrap shadow-reset">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="">
+                    <img src="{{ school.logo.url }}" alt="{{ school.name }} Logo" />
+                </div>
+                <div class="mg-t-30">
+                {{ school.name }} - {{ school.motto }}
+                </div>
+            </div>
+            <div class="col-lg-10">
+            <div class="col-lg-6">
+                <div class="user-profile-content">
+                    <h2>School Information</h2>
+                    <table  class="table small m-b-xs">
+                    <tr>
+                    <td>Name: </td><td><strong>{{ school.name }}</strong></td></tr>
+                    <tr><td>District: </td><td><strong>{{school.parish.district}}</strong></td></tr>
+                    <tr><td>County: </td><td><strong>{{ school.parish.county }}</strong></td></tr>
+                    <tr><td>Sub-county: </td><td><strong>{{ school.parish.subcounty }}</strong></td></tr>
+                    <tr><td>Parish: </td><td><strong>{{ school.parish }}</strong></td></tr>
+                    <tr><td>Address: </td><td><strong>{{ school.address }}</strong></td></tr>
+                    <tr><td>P.O.Box: </td><td><strong>{{ school.box_no }}</strong></td></tr>
+                    <tr><td>Email: </td><td><strong>{{ school.email }}</strong></td></tr>
+                    <tr><td>Website: </td><td><strong><a href="http://{{ school.website }}" target="_blank">{{ school.website }}</a></strong></td></tr>
+                    <tr><td>Phone: </td><td><strong>{{ school.phone }}</strong></td></tr>
+                    <tr><td>Fax: </td><td><strong>{{ school.fax }}</strong></td></tr>
+                    <tr><td>Service Code: </td><td><strong>{{ school.service_code }}</strong></td></tr>
+                    <td>Reg No.: </td><td><strong>{{ school.reg_no }}</strong></td></tr>
+                    <td>Center No.: </td><td><strong>{{ school.cen_no }}</strong></td></tr>
+                    </table>
+                </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="user-profile-content">
+                    <h2>School Particulars</h2>
+                    <table  class="table small m-b-xs">
+                    <tr><td>Operation Satus: </td><td><strong>{{ school.operation_status }}</strong></td></tr>
+                    <tr><td>Founder: </td><td><strong>{{ school.founder }}</strong></td></tr>
+                    <tr><td>Funder: </td><td><strong>{{ school.funder }}</strong></td></tr>
+                    <tr><td>Boys/Girls: </td><td><strong>{{ school.category }}</strong></td></tr>
+                    <tr><td>Day/Boarding: </td><td><strong>{{ school.section }}</strong></td></tr>
+                    </tr>
+                    <td>Registry Status: </td><td><strong>{{ school.regstatus }}</strong></td></tr>
+                    </tr>
+                    <td>Nearest School: </td><td><strong>{{ school.distance_to_nearest_school }}</strong></td></tr>
+                    </tr>
+                    <td>Main DEO Office: </td><td><strong>{{ school.distance_to_deo_office }}</strong></td></tr>
+                    </tr>
+                    <td>Urban/Rural: </td><td><strong>{{ school.rural_urban }}</strong></td></tr>
+                    </tr>
+                    <td>Founding Year: </td><td><strong>{{ school.yr_est }}</strong></td></tr>
+                    </tr>
+                    <td>Level: </td><td><strong>{{ school.level }}</strong></td></tr>
+                    </tr>
+                    <td>Highest Class: </td><td><strong>{{ school.highest_class }}</strong></td></tr>
+                    </tr>
+                    <td>Access: </td><td><strong>{{ school.access }}</strong></td></tr>
+                    </table>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock content %}

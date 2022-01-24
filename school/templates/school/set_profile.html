@@ -1,0 +1,41 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="button-adminpro-area mg-t-40">
+<div class="container">
+<div class="row">
+<div class="col-md-3">
+</div>
+<div class="col-md-6">
+<div class="button-ad-wrap mg-b-40 shadow-reset">
+    <h4>Choose your School to continue</h4>	
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}	
+			<fieldset>
+			<div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Select you School</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="school" class="select2_demo_3 form-control" style="width: 100%;">
+                    	<option></option>
+                        {% for school in schools %}
+                        {% if not school.schoolprofile %}
+                        <option value="{{school.id}}">{{school}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+				<button class="btn btn-success mg-b-4 " style="margin-bottom: 5%; margin: 5%;" type="submit">Submit</button>
+                    <a href="{% url 'add-school-profile' %}" class="center btn btn-sm btn btn-info">I Don't See My School</a>
+			</fieldset>
+		</form>
+	</div> 
+</div>  
+</div>
+</div>
+</div>
+</div>
+{% endblock content %}

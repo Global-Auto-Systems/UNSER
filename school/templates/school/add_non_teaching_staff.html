@@ -1,0 +1,137 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load addition %}
+{% block content %} 
+<div class="button-adminpro-area">
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+    <h4>Record Non-Teaching Staff
+        <input type="number" name="year" placeholder="Year" required class="form-control pull-right" style="width: 20%; margin-bottom: 1%;">
+    </h4>  
+    {% if teacher_form.errors %}
+    <div class="alert alert-danger">
+        {{teacher_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Gender</th>
+                    {% for staff in staff_types %}
+                    <th style="text-align: center;">{{staff}}</th>
+                    {% endfor %}
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>
+                        Male
+                    </td>
+                    {% for staff in staff_types %}
+                    <td><input type="number" name="male" class="form-control" min="0"></td>
+                    {% endfor %}
+                    <td></td>
+                    </tr>
+                    <tr>
+                    <td>
+                        Female
+                    </td>
+                    {% for staff in staff_types %}
+                    <td><input type="number" name="female" class="form-control" min="0"></td>
+                    <input type="text" name="staff_type" value="{{staff.id}}" hidden>
+                    {% endfor %}
+                    <td><button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-bottom: 3%;" type="submit">
+    Submit</button></td>
+                    </tr>
+
+            </tbody>
+        </table>
+        
+    </div>
+    </form>
+</div><!-- /.widget-box -->
+</div>
+<div class="col-md-12">
+<div class="user-profile-wrap shadow-reset mg-b-40">
+    <div class="row">
+    <div class="col-lg-12">
+    <div class="row">
+    <div class="col-lg-8">
+     <h4>View Non-Teaching Staff</h4>
+    </div>
+    <form method="GET" action="{% url 'add-non-teaching-staff' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+    <div class="col-lg-1">
+    <p class="pull-right">Year</p>
+    </div>
+    <div class="col-lg-2">
+    <input type="number" name="yr" value="{{yr}}" required class="form-control" style="width: 100%; margin-bottom: 1%;">
+    </div>
+    <div class="col-lg-1">
+    <input type="submit" value="Select" class="btn btn-default pull-right">
+    </div>
+    </form>
+    </div>
+    </div>
+    </div>
+    {% if teacher_form.errors %}
+    <div class="alert alert-danger">
+        {{teacher_form.errors}}
+    </div>
+    {% endif %}
+    <div class="static-table-list">
+        <table class="table border-table table-stripped" border="1" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Gender</th>
+                    {% for staff in staff_types %}
+                    <th style="text-align: center;">{{staff}}</th>
+                    {% endfor %}
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr>
+                    <td>
+                        Male
+                    </td>
+                    {% for staff in staff_types %}
+                    <td>{% for teacher in  teachers %} {% if teacher.staff_type.id == staff.id  %} {{teacher.male}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td>{{teachers_by_sex.total_male}}</td>
+                    </tr>
+                    <tr>
+                    <td>
+                        Female
+                    </td>
+                    {% for staff in staff_types %}
+                    <td>{% for teacher in  teachers %} {% if teacher.staff_type.id == staff.id  %} {{teacher.female}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td>{{teachers_by_sex.total_female}}</td>
+                    </tr>
+                     <td>
+                        Total
+                    </td>
+                    {% for staff in staff_types %}
+                    <td>{% for teacher in  teachers_by_type %} {% if teacher.staff_type == staff.id  %} {{teacher.total}} {% endif %}{% endfor %}</td>
+                    {% endfor %}
+                    <td><strong>{{teachers_by_sex.total_male|add:teachers_by_sex.total_female}}</strong></td>
+                    </tr>
+
+            </tbody>
+        </table>
+    </div>
+    </form>
+</div><!-- /.widget-box -->
+</div>   
+</div>
+</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,383 @@
+{% extends 'ministry/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+<div class="button-adminpro-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="button-ad-wrap shadow-reset mg-b-40">
+                    <h4>Teacher Registration Form</h4>   
+                    <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                    {{form.errors}} 
+                    </div>
+                    {% endif %}
+                    <fieldset>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Surname*</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="surname" value="{{teacher.surname}}" type="text" class="form-control" autocomplete="off" required/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">First Name*</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="first_name" value="{{teacher.first_name}}" type="text" class="form-control" autocomplete="off" required="" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Phone Number</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="phone" value="{{teacher.phone}}" type="text" class="form-control" autocomplete="off" placeholder="Phone Number"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">MPS Payroll Computer Number</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="payroll_number" value="{{teacher.payroll_number}}" type="text" class="form-control" autocomplete="off"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Email Address</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="email" value="{{teacher.email}}" type="text" class="form-control" autocomplete="off" placeholder="Email"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">NIN</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="nin" value="{{teacher.nin}}" type="text" class="form-control" autocomplete="off"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Sex</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="gender" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for gender in genders %}
+                        {% if teacher %}
+                        {% if teacher.gender.id == gender.id %}
+                        <option value="{{gender.id}}" selected="selected">{{gender}}</option>
+                        {% else %}
+                        <option value="{{gender.id}}">{{gender}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{gender.id}}">{{gender}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Date of Birth</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="date-picker-inner">
+                        <div class="form-group data-custon-pick" id="data_3">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input name="dob" type="text" class="form-control" autocomplete="off" placeholder="Date of Birth">
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">District of Birth</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="district" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for district in districts %}
+                        {% if teacher %}
+                        {% if teacher.district.id == district.id %}
+                        <option value="{{district.id}}" selected="selected">{{district}}</option>
+                        {% else %}
+                        <option value="{{district.id}}">{{district}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{district.id}}">{{district}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Previous Post ( District )</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="previous_post" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for district in districts %}
+                        {% if teacher %}
+                        {% if teacher.previous_post.id == district.id %}
+                        <option value="{{district.id}}" selected="selected">{{district}}</option>
+                        {% else %}
+                        <option value="{{district.id}}">{{district}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{district.id}}">{{district}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Passport Size Photo</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <input name="photo" value="{{teacher.photo.url}}" type="File" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Highest Level of Education</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="education" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for education in educations %}
+                        {% if teacher %}
+                        {% if teacher.education.id == education.id %}
+                        <option value="{{education.id}}" selected="selected">{{education}}</option>
+                        {% else %}
+                        <option value="{{education.id}}">{{education.}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{education.id}}">{{education}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Highest Teaching Qualification</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="profession" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for profession in professions %}
+                        {% if teacher %}
+                        {% if teacher.profession.id == profession.id %}
+                        <option value="{{profession.id}}" selected="selected">{{profession}}</option>
+                        {% else %}
+                        <option value="{{profession.id}}">{{profession}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{profession.id}}">{{profession}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Date of first posting</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="date-picker-inner">
+                        <div class="form-group data-custon-pick" id="data_3">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input name="first_posting" type="text" class="form-control" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-12">
+                        <label class="login2 pull-left pull-left-pro">Date of first appointment</label>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="date-picker-inner">
+                        <div class="form-group data-custon-pick" id="data_3">
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                <input name="first_appointment" type="text" class="form-control" autocomplete="off">
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="">
+                    <div class="col-lg-10">
+                        <label class="login2 pull-left pull-left-pro">On MPS Payroll?(<i><small>Uncheck the box if No</small></i>)</label>
+                    </div>
+                    <div class="col-lg-2">
+                        <input name="on_payroll" value="{{teacher.nin}}" type="checkbox" checked />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">MPS Salary Scale</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="salary_scale" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for salary_scale in salary_scales %}
+                        {% if teacher %}
+                        {% if teacher.salary_scale.id == salary_scale.id %}
+                        <option value="{{salary_scale.id}}" selected="selected">{{salary_scale}}</option>
+                        {% else %}
+                        <option value="{{salary_scale.id}}">{{salary_scale}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{salary_scale.id}}">{{salary_scale}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Additional School Responsibilities</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="responsibilities" class="select2_demo_3 form-control" style="width: 100%;" multiple>
+                        {% for responsibility in responsibilities %}
+                        {% if teacher %}
+                        {% for res in teacher.responsibilities.all %}
+                        {% if res.id == responsibility.id %}
+                        <option value="{{responsibility.id}}" selected="selected">{{responsibility}}</option>
+                        {% else %}
+                        <option value="{{responsibility.id}}">{{responsibility}}</option>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{responsibility.id}}">{{responsibility}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Type of Training Last Year</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="training" class="select2_demo_3 form-control" style="width: 100%;">
+                        {% for training in trainings %}
+                        {% if teacher %}
+                        {% if teacher.training.id == training.id %}
+                        <option value="{{training.id}}" selected="selected">{{training}}</option>
+                        {% else %}
+                        <option value="{{training.id}}">{{training}}</option>
+                        {% endif %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{training.id}}">{{training}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Main Subject of Specialization</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="specialization" class="select2_demo_3 form-control" style="width: 100%;" multiple>
+                        {% for subject in subjects %}
+                        {% if teacher %}
+                        {% for res in teacher.specialization.all %}
+                        {% if res.id == subject.id %}
+                        <option value="{{subject.id}}" selected="selected">{{subject}}</option>
+                        {% else %}
+                        <option value="{{subject.id}}">{{subject}}</option>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{subject.id}}">{{subject}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="form-group-inner">
+                <div class="col-lg-12">
+                    <label class="login2 pull-left pull-left-pro">Main Subject Taught</label>
+                </div>
+                <div class="col-lg-12">
+                    <select name="taught" class="select2_demo_3 form-control" style="width: 100%;" multiple>
+                        {% for subject in subjects %}
+                        {% if teacher %}
+                        {% for res in teacher.taught.all %}
+                        {% if res.id == subject.id %}
+                        <option value="{{subject.id}}" selected="selected">{{subject}}</option>
+                        {% else %}
+                        <option value="{{subject.id}}">{{subject}}</option>
+                        {% endif %}
+                        {% endfor %}
+                        {% else %}
+                        <option></option>
+                        <option value="{{subject.id}}">{{subject}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn btn-success mg-b-4 pull-right" style="margin-top: 3%; margin-right: 3%;" type="submit">
+            Submit</button>
+            </div>
+                        
+                    </fieldset>
+                    </form>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

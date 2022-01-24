@@ -1,0 +1,44 @@
+{% extends 'public/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mg-t-30">
+            <div class="px-3">
+                <h3><b>Access learning materials for {{the_class}}</b></h3>
+                <hr>
+                {% for upload in uploads %}
+                <h4>{{upload.home_class}} - {% for subject in upload.subject.all %} {{subject}}, {% endfor %}</h4>
+                <p><a href="{{upload.home_work.url}}" target="_blank">{% if upload.topic %}{{upload.topic}}{% else %}All Topics{% endif %}</a> <a href="{{upload.home_work.url}}" target="_blank" class="btn btn-success btn-xs">Download</a></p>
+                <hr>
+                {% endfor %}
+
+            </div>
+        </div>
+        <div class="col-lg-4 mg-t-30">
+        <div class="row">
+            <h3 style="text-align: center;"><b>Other Classes</b></h3>
+            <hr>
+        {% for class in classes %}
+        <a href="{% url 'covid19-downloads' class.id %}">
+            <div class="col-lg-6 mg-t-30">
+                <div class="author-permissio-wrap shadow-reset">
+                    <div style="display: flex;">
+                        <div >
+                            <h2>{{class.name}}</h2>
+                        </div>
+                        <div style="margin-left: 10%; color: black;">
+                            All Subjects
+                            {{class.uploads}} Files
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+        </div>
+        
+        </div>
+    </div>
+</div>
+{% endblock content %}

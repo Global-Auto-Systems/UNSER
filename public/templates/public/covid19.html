@@ -1,0 +1,33 @@
+{% extends 'public/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 mg-t-30">
+            <div class="px-3">
+                <h3 style="text-align: center;"><b>Access learning materials for all levels</b></h3>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+    {% for class in classes %}
+    <a href="{% url 'covid19-downloads' class.id %}">
+        <div class="col-lg-2 mg-t-30">
+            <div class="author-permissio-wrap shadow-reset">
+                <div style="display: flex;">
+                    <div >
+                        <h2>{{class.name}}</h2>
+                    </div>
+                    <div style="margin-left: 10%; color: black;">
+                        All Subjects
+                        {{class.uploads}} Files
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+    </div>
+</div>
+{% endblock content %}
