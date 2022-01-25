@@ -7,4 +7,4 @@ It can be used by the Schools, the Public, Education Partners, Service providers
 If you would d like to chat with UNSER developers and Users,join UNSER Community via <a href="https://join.slack.com/t/unsergroup/shared_invite/zt-12by6mbpw-0Q3Ogw2nUgKVecf0rGSe6Q">UNSER Slack Channel.</a> 
 
 # Licenses
-This project is licensed under the terms of the MIT license. Seee the <a href="xx">license </a>  file for rights and limitations
+This project is licensed under the terms of the MIT license. Seee the <a href="">license </a>  file for rights and limitations
