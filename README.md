@@ -1,4 +1,4 @@
-# UNSER
+## UNSER
 UNSER makes accurate and authentic information about schools available to all citizens and stakeholders in the education system in Uganda in an efficient, timely and cost effective manner.
 UNSER is an AI and Data Analytics Powered Education and Schools' Information management Platform. This is an Open Source project for schools and education information management. The target is to make sure that schools have a digital presence to benefit all the stakeholders.
 It can be used by the Schools, the Public, Education Partners, Service providers, Ministry of Education and Law enforcement as shown. 
